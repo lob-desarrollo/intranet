@@ -1,0 +1,36 @@
+@font-face {
+    font-family: 'ITC Avant Garde Demi';
+    src: url('./fuentes/AvantGarde-Demi.eot');
+    src: url('./fuentes/AvantGarde-Demi.eot?#iefix') format('embedded-opentype'),
+        url('./fuentes/AvantGarde-Demi.woff2') format('woff2'),
+        url('./fuentes/AvantGarde-Demi.woff') format('woff'),
+        url('./fuentes/AvantGarde-Demi.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'ITC Avant Garde';
+    src: url('./fuentes/AvantGarde-Book.eot');
+    src: url('./fuentes/AvantGarde-Book.eot?#iefix') format('embedded-opentype'),
+        url('./fuentes/AvantGarde-Book.woff2') format('woff2'),
+        url('./fuentes/AvantGarde-Book.woff') format('woff'),
+        url('./fuentes/AvantGarde-Book.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+:root {
+    --fuente-principal: 'ITC Avant Garde';
+    --fuente-secundaria: 'ITC Avant Garde Demi';
+    --success: #55efc4;
+    --warning: #ffeaa7;
+    --error: #ff7675;
+    --negro: #2d3436;
+    --blanco: #FFF;
+    --gris: #ecf0f1;
+    --oxford: #a4b0be;
+    --bluegray: #778ca3;
+}
