@@ -16,7 +16,7 @@
 <body class="bg-white">
     <div class="barraTop">
         <button type="button" id="openMenu" class="btnMenu"><i class="fal fa-bars"></i></button>
-        <a href="{{ url('/') }}" class="btnlogo" title="{{ config('app.name', 'Laravel') }}"><img src="{{ asset('img/lob.png') }}" class="img-fluid" alt="{{ config('app.name', 'Laravel') }}" /></a>
+        <a href="{{ url('/') }}" class="btnlogo" title="{{ config('app.name', 'Laravel') }}"><img src="{{ asset('media/lob.png') }}" class="img-fluid" alt="{{ config('app.name', 'Laravel') }}" /></a>
         <a href="{{ route('login') }}" class="btnLogin" title="Ingreso"><span>Ingreso</span></a>
         <ul class="menu">
             <li><a href="{{ url('/') }}" class="opcmenu"><span>Nosotros</span></a></li>
@@ -35,7 +35,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-3">
-                    <img src="{{ asset('img/lob.jpg') }}" class="img-fluid" />
+                    <img src="{{ asset('media/lob.jpg') }}" class="img-fluid" />
                 </div>
                 <div class="col-3">
                     <ul class="menuFooter">
