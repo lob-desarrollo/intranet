@@ -19,6 +19,149 @@ body {
 	margin-bottom: 150px;
 }
 
+.slideout-open body {
+    overflow: hidden;
+}
+
+.bloqueMenu {
+	position: fixed;
+	background: rgba(0, 0, 0, 0);
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	z-index: -1;
+	transition: all 0.3s ease;
+}
+
+.menuLateral {
+	position: relative;
+	background: var(--negro);
+	width: 275px;
+	height: 100vh;
+	left: -100%;
+	transition: all 0.3s ease;
+}
+
+.visible {
+	background: rgba(0, 0, 0, 0.5);
+	z-index: 12;
+}
+
+.visible .menuLateral {
+	left: 0px;
+}
+
+.encabezadoLateral {
+	border-bottom: solid 1px rgba(255, 255, 255, 0.3);
+}
+
+.btnCloseMenu {
+	float: right;
+	width: 60px;
+	height: 60px;
+	border: none;
+	background: transparent;
+	color: var(--blanco);
+	opacity: 0.3;
+	font-size: 1.8rem;
+	transition: all 0.3s ease;
+}
+
+.btnCloseMenu:hover {
+	opacity: 1;
+}
+
+.zonaScroll {
+	width: 100%;
+	height: calc(100vh - 60px);
+	overflow: auto;
+}
+
+.zonaScroll::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+    background-color: var(--blanco);
+}
+
+.zonaScroll::-webkit-scrollbar-thumb {
+    background-color: var(--oxford); !important;
+}
+
+.listaMenuLateral {
+	list-style: none;
+	margin: 15px 0 0 0;
+	padding: 0;
+}
+
+.listaMenuLateral li {
+	display: block;
+}
+
+.enlaceMenuLateral {
+	position: relative;
+	display: table;
+	width: 100%;
+	height: 43px;
+	text-decoration: none;
+	transition: all 0.3s ease;
+}
+
+.enlaceMenuLateral span.tituloEnlace {
+	display: table-cell;
+	width: 100%;
+	height: 100%;
+	vertical-align: middle;
+	text-align: left;
+	font-size: 1rem;
+	color: var(--blanco);
+	padding: 0 0 0 15px;
+}
+
+.lineaEnlace {
+	position: absolute;
+	vertical-align: bottom;
+	top: 0px;
+	left: 0px;
+	width: 3px;
+	height: 100%;
+}
+
+.lineaEnlace span {
+	position: absolute;
+	display: block;
+	bottom: 0px;
+	width: 100%;
+	height: 0;
+	background: var(--blanco);
+	transition: all 0.5s ease;
+}
+
+.tituloEnlace i {
+	color: var(--bluegray);
+	margin: 0 8px 0 0;
+}
+
+.enlaceMenuLateral:hover {
+	background: rgba(255, 255, 255, 0.3);
+}
+
+.enlaceMenuLateral:hover .lineaEnlace span {
+	height: 100%;
+}
+
+.enlaceActivo {
+	background: rgba(255, 255, 255, 0.3);
+}
+
+.enlaceActivo i {
+	color: var(--blanco);
+}
+
+.enlaceActivo .lineaEnlace span {
+	height: 100%;
+}
+
 .barraTop {
 	position: fixed;
 	top: 0px;
@@ -92,9 +235,9 @@ body {
 	padding: 0;
 }
 
-.menu li {
+.menu>li {
+	position: relative;
 	float: left;
-	height: 60px;
 }
 
 .opcmenu {
@@ -116,8 +259,107 @@ body {
 	color: var(--negro);
 }
 
-.opcmenu:hover {
+.menu li:hover a.opcmenu {
 	background: var(--gris);
+}
+
+.submenu {
+	display: none;
+	opacity: 0;
+	position: absolute;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	right: 0px;
+	top: 60px;
+	border-top: solid 1px var(--gris);
+	padding: 5px;
+	min-width: 200px;
+	background: var(--oxford);
+	border-radius: 0px 0px 0.5rem 0.5rem;
+	-moz-border-radius: 0px 0px 0.5rem 0.5rem;
+	-webkit-border-radius: 0px 0px 0.5rem 0.5rem;
+	transition: all 0.3s ease;
+}
+
+.submenuVisible {
+	display: block;
+	opacity: 1;
+}
+
+.submenu li {
+	display: block;
+	width: 100%;
+}
+
+.submenu li a {
+	display: table;
+	width: 100%;
+	text-decoration: none;
+	margin-bottom: 5px;
+}
+
+.submenu li:last-child a {
+	margin-bottom: 0px;
+}
+
+.submenu li a span {
+	display: table-cell;
+	color: var(--blanco);
+	border-radius: 0.5rem;
+	padding: 0.2rem 0.5rem;
+	vertical-align: middle;
+	transition: all 0.3s ease;
+}
+
+.submenu li a:hover span {
+	background: var(--blanco);
+	color: var(--negro);
+}
+
+.titulo {
+	font-family: var(--fuente-secundaria);
+	font-weight: normal;
+	margin: 0px;
+	padding: 0px;
+	text-align: center;
+}
+
+.subtitulo {
+	font-weight: normal;
+	margin: 0px;
+	padding: 0px;
+	color: var(--oxford);
+	text-align: center;
+}
+
+.titulo2 {
+	font-family: var(--fuente-secundaria);
+	font-weight: normal;
+	margin: 0px;
+	padding: 0px;
+	text-align: left;
+}
+
+.subtitulo2 {
+	font-weight: normal;
+	margin: 0px;
+	padding: 0px;
+	color: var(--oxford);
+	text-align: left;
+}
+
+.contenidoTabla {
+	display: table;
+	width: 100%;
+	height: 100%;
+}
+
+.contenidoCelda {
+	display: table-cell;
+	text-align: justify;
+	vertical-align: top;
+	padding: 0 2rem;
 }
 
 .conFondo {
@@ -232,7 +474,7 @@ footer {
 	position: fixed;
 	right: 10px;
 	bottom: 9px;
-	z-index: 9999;
+	z-index: 11;
 	color: var(--blanco);
 	font-size: 1rem;
 	line-height: 1.5rem;

@@ -15,7 +15,7 @@
 			</div>
 		</div>
 		<video id="background-video" autoplay loop muted poster="https://assets.codepen.io/6093409/river.jpg">
-			<source src="{{ asset('media/lob.mp4') }}" type="video/mp4">
+			<source src="{{ asset('media/lob.mp4') }}" type="video/mp4" />
 		</video>
 	</div>
 
@@ -184,7 +184,7 @@
 		</div>
 	</section>
 
-	<section class="conFondo homeBg1">
+	<section class="conFondo" style="background: url('{{ asset('media/banner.jpg') }}') top right">
 		<div class="contenidoConFondo">
 			<div class="container">
 				<div class="cajaResumenTabla">

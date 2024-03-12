@@ -14,14 +14,43 @@
     @stack('css')
 </head>
 <body class="bg-white">
+    <div class="bloqueMenu">
+        <div class="menuLateral">
+            <div class="encabezadoLateral">
+                <button type="button" id="closeMenu" class="btnCloseMenu"><i class="fal fa-times"></i></button>
+                <div class="logoLateral">
+                    <img src="{{ asset('media/lob-blanco-sin-fondo.png') }}" class="img-fluid" alt="{{ config('app.name', 'Laravel') }}" />
+                </div>
+            </div>
+            <div class="zonaScroll">
+                <ul class="listaMenuLateral">
+                    <li>
+                        <a href="{{ url('/') }}" class="enlaceMenuLateral enlaceActivo">
+                            <span class="lineaEnlace"><span></span></span>
+                            <span class="tituloEnlace">
+                                <i class="fas fa-home-alt"></i> Inicio
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>    
+    </div>
+    
     <div class="barraTop">
         <button type="button" id="openMenu" class="btnMenu"><i class="fal fa-bars"></i></button>
         <a href="{{ url('/') }}" class="btnlogo" title="{{ config('app.name', 'Laravel') }}"><img src="{{ asset('media/lob.png') }}" class="img-fluid" alt="{{ config('app.name', 'Laravel') }}" /></a>
         <a href="{{ route('login') }}" class="btnLogin" title="Ingreso"><span>Ingreso</span></a>
         <ul class="menu">
-            <li><a href="{{ url('/') }}" class="opcmenu"><span>Nosotros</span></a></li>
-            <li><a href="{{ url('/') }}" class="opcmenu"><span>Valores</span></a></li>
-            <li><a href="{{ url('/') }}" class="opcmenu"><span>Reconocimientos</span></a></li>
+            <li><a href="{{ url('/lob/nosotros') }}" class="opcmenu"><span>Nosotros</span></a></li>
+            <!--li class="dropDown">
+                <a href="{{ url('/') }}" class="opcmenu"><span>Nosotros <i class="fas fa-angle-down ms-1"></i></span></a>
+                <ul class="submenu">
+                    <li><a href=""><span>Valores</span></a></li>
+                    <li><a href=""><span>Reconocimientos</span></a></li>
+                </ul>
+            </li>
+            <li><a href="{{ url('/') }}" class="opcmenu"><span>Valores</span></a></li-->
         </ul>
     </div>
 
@@ -81,7 +110,6 @@
     </div>
 
     <a href="#inicio" class="botonSubir"><span><i class="fas fa-chevron-up"></i></span></a>
-    <script src="{{ asset('js/jquery.js') }}"></script>
-    @vite(['resources/js/app.js', 'resources/js/principal.js'])
+    @vite(['resources/js/app.js'])
 </body>
 </html>
