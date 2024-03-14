@@ -9,6 +9,7 @@ export default defineConfig({
                 'resources/css/variables.css',
                 'resources/css/app.css',
                 'resources/css/home.css',
+                'resources/css/nosotros.css',
                 'resources/js/app.js',
             ],
             refresh: true,

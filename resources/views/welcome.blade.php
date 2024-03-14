@@ -163,19 +163,15 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-6">
-					<img src="https://company.cera-theme.com/wp-content/uploads/sites/14/2021/06/andrew-neel-ute2XAFQU2I-unsplash-700x500.jpg" class="img-fluid" />
+					<img src="{{ asset('media/03banner.jpg') }}" class="img-fluid" />
 				</div>
 				<div class="col-6">
 					<div class="contenidoTabla">
-						<div class="contenidoCelda">
-							<h3 class="subtitulo2">Lorem ipsum</h3>
-							<h2 class="titulo2 mt-2">Quisque dui nisl, eleifend eget</h2>
+						<div class="contenidoCeldaVertical">
+							<h2 class="titulo2 mt-2">Objetivo General</h2>
 
 							<p class="mt-4">
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas consequat dignissim lectus, eget sagittis sapien accumsan quis. Nam sed viverra sem. Proin dapibus aliquam lectus non sollicitudin. Sed a lectus lacus. Nunc vel tellus eget tellus condimentum dapibus bibendum vitae ante. Fusce sapien nulla, sagittis nec dapibus et, sagittis non ipsum. In a nisl sed augue iaculis fringilla nec a sem. Etiam commodo dignissim convallis.
-							</p>
-							<p>
-							Vestibulum pulvinar at magna quis condimentum. Pellentesque ut diam laoreet, mollis magna et, pretium orci. Maecenas eget tincidunt lectus. Sed ultrices ipsum sed turpis ornare, eu facilisis sem condimentum. Mauris ultricies ex vel erat suscipit mollis. Etiam aliquet et quam vitae congue. Aenean facilisis mattis odio eget vestibulum. Nullam vulputate est ac consequat molestie. Suspendisse vitae porttitor ligula.
+							Reconocer a nuestro cliente mejor que nadie, con propuestas de moda superiores. Posicionarse como la marca de moda juvenil emblemática de México y motivar a nuestros clientes para que se sientan atractivos, jóvenes y en tendencia.
 							</p>
 						</div>
 					</div>
@@ -189,22 +185,32 @@
 			<div class="container">
 				<div class="cajaResumenTabla">
 					<div>
-						<h2 class="titulo2 mt-2">Quisque dui nisl, eleifend eget</h2>
+						
+
+						<h3 class="subtitulo2">Historia</h3>
+						<h2 class="titulo2 mt-2">LOB desde 1964</h2>
 
 						<p class="mt-4">
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas consequat dignissim lectus, eget sagittis sapien accumsan quis. Nam sed viverra sem. Proin dapibus aliquam lectus non sollicitudin. Sed a lectus lacus. Nunc vel tellus eget tellus condimentum dapibus bibendum vitae ante. Fusce sapien nulla, sagittis nec dapibus et, sagittis non ipsum. In a nisl sed augue iaculis fringilla nec a sem. Etiam commodo dignissim convallis.
+							Operadora Lob es una empresa 100% Mexicana y Tapatía. Dedicada al diseño y comercialización de prendas de vestir. En la actualidad estamos presentes en CASI TODOS los estados de la República Mexicana.
 						</p>
-
 						<p>
-						Vestibulum pulvinar at magna quis condimentum. Pellentesque ut diam laoreet, mollis magna et, pretium orci. Maecenas eget tincidunt lectus. Sed ultrices ipsum sed turpis ornare, eu facilisis sem condimentum. Mauris ultricies ex vel erat suscipit mollis. Etiam aliquet et quam vitae congue. Aenean facilisis mattis odio eget vestibulum. Nullam vulputate est ac consequat molestie. Suspendisse vitae porttitor ligula.
+							LOB nace en 1964.<br />
+							En 1973 se abre la primera tienda, en avenida Chapultepec en Guadalajara México; comercializando inicialmente ropa para caballero.<br />
+							Después de abrir tres tiendas se inició la línea de Dama.<br />
+							En 1978 se le da un cambio al nombre de las tiendas que hast hoy en día todos conocemos, “LOB”.<br />
+							1983 Inicia la expansión a otros estados de la república.<br />
+							En 1998 se inician operaciones en Costa Rica.<br />
+							En 2002 refuerza su operación, trabajando en Sociedad con LOB FOOTWEAR<br />
+							En 2012 LOB comienza a hacer ventas por internet.<br />
+							En 2007 Nace tarjeta de crédito LOB. 
 						</p>
 
-						<p class="mt-4">
+						<!--p class="mt-4">
 							<h5 class="firmado">
 								Lorem ipsum
 								<span>Sed a lectus lacus</span>
 							</h5>
-						</p>
+						</p-->
 					</div>
 				</div>
 			</div>

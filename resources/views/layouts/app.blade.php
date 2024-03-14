@@ -69,12 +69,10 @@
                 <div class="col-3">
                     <ul class="menuFooter">
                         <li><h4 class="menuTituloFooter">ACERCA DE LOB</h4></li>
-                        <li><a href="" class="btnMenuFooter"><span>Nosotros</span></a></li>
-                        <li><a href="" class="btnMenuFooter"><span>Valores</span></a></li>
-                        <li><a href="" class="btnMenuFooter"><span>Reconocimientos</span></a></li>
+                        <li><a href="{{ url('/lob/nosotros') }}" class="btnMenuFooter"><span>Nosotros</span></a></li>
                     </ul>
                 </div>
-                <div class="col-3">
+                <!--div class="col-3">
                     <ul class="menuFooter">
                         <li><h4 class="menuTituloFooter">VESTIBULUM PULVINAR</h4></li>
                         <li><a href="" class="btnMenuFooter"><span>Etiam aliquet</span></a></li>
@@ -89,7 +87,7 @@
                         <li><a href="" class="btnMenuFooter"><span>Suspendisse</span></a></li>
                         <li><a href="" class="btnMenuFooter"><span>Pellentesque</span></a></li>
                     </ul>
-                </div>
+                </div-->
             </div>
         </div>
     </footer>
