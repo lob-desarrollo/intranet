@@ -23,16 +23,38 @@
                 </div>
             </div>
             <div class="zonaScroll">
-                <ul class="listaMenuLateral">
-                    <li>
-                        <a href="{{ url('/') }}" class="enlaceMenuLateral enlaceActivo">
-                            <span class="lineaEnlace"><span></span></span>
-                            <span class="tituloEnlace">
-                                <i class="fas fa-home-alt"></i> Inicio
-                            </span>
-                        </a>
-                    </li>
-                </ul>
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-comunidad" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Comunidad</button>
+                        <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-administracion" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Administración</button>
+                    </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-comunidad" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <ul class="listaMenuLateral">
+                            <li>
+                                <a href="{{ url('/') }}" class="enlaceMenuLateral enlaceActivo">
+                                    <span class="lineaEnlace"><span></span></span>
+                                    <span class="tituloEnlace">
+                                        <i class="fas fa-home-alt"></i> Inicio
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>  
+                    </div>
+                    <div class="tab-pane fade" id="nav-administracion" role="tabpanel" aria-labelledby="nav-profile-tab">
+                        <ul class="listaMenuLateral">
+                            <li>
+                                <a href="{{ url('/') }}" class="enlaceMenuLateral enlaceActivo">
+                                    <span class="lineaEnlace"><span></span></span>
+                                    <span class="tituloEnlace">
+                                        <i class="fas fa-ad"></i> Publicar Aviso
+                                    </span>
+                                </a>
+                            </li>
+                        </ul> 
+                    </div>
+                </div>
             </div>
         </div>    
     </div>
@@ -40,7 +62,6 @@
     <div class="barraTop">
         <button type="button" id="openMenu" class="btnMenu"><i class="fal fa-bars"></i></button>
         <a href="{{ url('/') }}" class="btnlogo" title="{{ config('app.name', 'Laravel') }}"><img src="{{ asset('media/lob.png') }}" class="img-fluid" alt="{{ config('app.name', 'Laravel') }}" /></a>
-        <a href="{{ route('login') }}" class="btnLogin" title="Ingreso"><span>Ingreso</span></a>
         <ul class="menu">
             <li><a href="{{ url('/lob/nosotros') }}" class="opcmenu"><span>Nosotros</span></a></li>
             <!--li class="dropDown">
@@ -51,6 +72,23 @@
                 </ul>
             </li>
             <li><a href="{{ url('/') }}" class="opcmenu"><span>Valores</span></a></li-->
+            @guest
+                @if (Route::has('login'))
+                    <li><a href="{{ route('login') }}" class="btnLogin" title="Ingreso"><span>Ingreso</span></a></li>
+                @endif
+            @else
+                <li class="dropDown">
+                    <a href="{{ url('/') }}" class="opcmenu"><span><i class="fal fa-user me-1"></i> {{ Auth::user()->name }} <i class="fas fa-angle-down ms-1"></i></span></a>
+                    <ul class="submenu">
+                        <li>
+                            <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><span>Salir</span></a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+            @endguest
         </ul>
     </div>
 
@@ -99,8 +137,8 @@
                 </div>
                 <div class="col-6">
                     <div class="redes">
-                        <a href=""><i class="fab fa-facebook-f"></i></a>
-                        <a href=""><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/lob.com.mx" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/lobmoda/" target="_blank"><i class="fab fa-instagram"></i></a>
                     </div>  
                 </div>
             </div>

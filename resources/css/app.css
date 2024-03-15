@@ -100,12 +100,12 @@ body {
 }
 
 .zonaScroll::-webkit-scrollbar-thumb {
-    background-color: var(--oxford); !important;
+    background-color: var(--oxford) !important;
 }
 
 .listaMenuLateral {
 	list-style: none;
-	margin: 15px 0 0 0;
+	margin: 0;
 	padding: 0;
 }
 
@@ -218,7 +218,6 @@ body {
 }
 
 .btnLogin {
-	float: right;
 	display: table;
 	border: solid 1px var(--negro);
 	border-radius: 0.5rem;
@@ -332,6 +331,28 @@ body {
 	color: var(--negro);
 }
 
+.nav-link {
+	color: var(--oxford);
+    border: none;
+    font-size: 0.8rem;
+    padding: 0.4rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+	color: var(--blanco);
+	text-decoration: underline;
+	border: none !important;
+}
+
+.nav-link.active {
+	background: none !important;
+    color: var(--blanco) !important;
+    border: none !important;
+    font-size: 0.8rem;
+    padding: 0.4rem 1rem;
+}
+
 .titulo {
 	font-family: var(--fuente-secundaria);
 	font-weight: normal;
@@ -379,6 +400,7 @@ body {
 	border-radius: 0.5rem;
 	-webkit-box-shadow: 0 5px 10px 0 var(--oxford);
 	box-shadow: 0 5px 10px 0 var(--oxford);
+	overflow: hidden;
 }
 
 .tarjeta2 {
@@ -390,6 +412,7 @@ body {
 	width: 90%;
 	min-height: 350px;
 	margin: 0 auto 0 auto;
+	overflow: hidden;
 }
 
 .celdaTarjeta {
@@ -408,10 +431,24 @@ body {
 	padding: 0 2rem;
 }
 
+.fondoCiudad {
+	background: url('../../public/media/tlaquepaque.jpg') no-repeat center center;
+	background-size: cover;
+}
+
+.cubiertaCiudad {
+	background: rgba(0, 0, 0, 0.5);
+	color: var(--blanco);
+}
+
 .tarjetaIcono {
 	text-align: center;
 	font-size: 3rem;
 	color: var(--bluegray);
+}
+
+.cubiertaCiudad .tarjetaIcono {
+	color: var(--blanco);
 }
 
 .tarjetaTitulo {
@@ -421,8 +458,23 @@ body {
 	color: var(--negro);
 }
 
+.cubiertaCiudad .tarjetaTitulo {
+	color: var(--blanco);
+}
+
 .tarjetaDescripcion {
 	text-align: justify;
+}
+
+.tarjetaTiempo {
+	text-align: center;
+}
+
+.tarjetaTemperatura {
+	font-family: var(--fuente-secundaria);
+	font-size: 2rem;
+	color: var(--blanco);
+	border-radius: solid 1px #F00;
 }
 
 .tarjetaEnlace {

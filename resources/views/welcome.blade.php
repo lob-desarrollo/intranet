@@ -37,16 +37,19 @@
 					</div>
 				</div>
 				<div class="col-4">
-					<div class="tarjeta">
-						<div class="celdaTarjeta">
+					<div class="tarjeta fondoCiudad">
+						<div class="celdaTarjeta cubiertaCiudad">
+							@isset($parametros['main'])
 							<div class="tarjetaIcono">
-								<i class="fas fa-trophy-alt"></i>
+								<i class="far fa-{{ strtolower($parametros['main']) }}"></i>
 							</div>
-							<h2 class="tarjetaTitulo mt-2">Lorem ipsum dolor</h2>
-							<div class="tarjetaDescripcion mt-3">
-								 Quisque dui nisl, eleifend eget augue aliquam, fringilla lobortis odio. Praesent accumsan ligula neque, a pretium dolor mattis auctor.
+							<h2 class="tarjetaTitulo mt-2">{{ strtoupper($parametros['weather']) }}</h2>
+							<div class="tarjetaTiempo mt-3">
+								<div class="tarjetaTemperatura">{{ intval($parametros['temp']) }}&deg;C</div>
+								 {{ $parametros['name'] }}, {{ $parametros['country'] }}
 							</div>
-							<a href="#" class="tarjetaEnlace mt-4"><span>Ver más</span></a>
+							<!--a href="#" class="tarjetaEnlace mt-4"><span>Ver más</span></a-->
+							@endisset
 						</div>
 					</div>
 				</div>

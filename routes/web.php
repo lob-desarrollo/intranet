@@ -17,8 +17,8 @@ Route::get('/', function () {
     $city = 'Tlaquepaque';
     $key = config('services.owm.key');
 
-    $response = Http::get("https://api.openweathermap.org/data/2.5/weather?q=".$city."&lang=es"."&appid=".$key)->json();
     $parametros = [];
+    /*$response = Http::get("https://api.openweathermap.org/data/2.5/weather?q=".$city."&lang=es"."&appid=".$key)->json();
     if($response['cod'] == "200") {
         $parametros = ['weather' => $response['weather'][0]['description'],
                        'main'    => $response['weather'][0]['main'],
@@ -26,8 +26,8 @@ Route::get('/', function () {
                        'name'    => $response['name'],
                        'country' => $response['sys']['country'],
                        'ok'      => $response['cod']];
-    }
-dd($parametros);
+    }*/
+
     return view('welcome', compact('parametros'));
 });
 
