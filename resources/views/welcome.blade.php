@@ -20,7 +20,7 @@
 	</div>
 
 	<section class="pb-4 bg-light">
-		<div class="container">
+		<div class="container pb-5">
 			<div class="row">
 				<div class="col-4">
 					<div class="tarjeta">
@@ -30,7 +30,7 @@
 							</div>
 							<h2 class="tarjetaTitulo mt-2">Lorem ipsum dolor</h2>
 							<div class="tarjetaDescripcion mt-3">
-								 Quisque dui nisl, eleifend eget augue aliquam, fringilla lobortis odio. Praesent accumsan ligula neque, a pretium dolor mattis auctor.
+								Quisque dui nisl, eleifend eget augue aliquam, fringilla lobortis odio. Praesent accumsan ligula neque, a pretium dolor mattis auctor.
 							</div>
 							<a href="#" class="tarjetaEnlace mt-4"><span>Ver más</span></a>
 						</div>
@@ -69,6 +69,7 @@
 				</div>
 			</div>
 
+			@if (!Auth::guest())
 			<div class="row mt-5">
 				<div class="col-12 pt-4">
 					<h3 class="subtitulo mt-5">Lorem ipsum</h3>
@@ -159,6 +160,7 @@
 			</div>
 
 			<button type="button" class="btnLista">Consultar lista</button>
+			@endif
 		</div>
 	</section>
 

@@ -22,13 +22,17 @@
                     <img src="{{ asset('media/lob-blanco-sin-fondo.png') }}" class="img-fluid" alt="{{ config('app.name', 'Laravel') }}" />
                 </div>
             </div>
+            <nav class="menuSecciones">
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-comunidad" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Comunidad</button>
+                    @if (!Auth::guest())
+                        @if (Auth::user()->hasRole('admin'))
+                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-administracion" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Administración</button>
+                        @endif
+                    @endif
+                </div>
+            </nav>
             <div class="zonaScroll">
-                <nav>
-                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                        <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-comunidad" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Comunidad</button>
-                        <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-administracion" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Administración</button>
-                    </div>
-                </nav>
                 <div class="tab-content" id="nav-tabContent">
                     <div class="tab-pane fade show active" id="nav-comunidad" role="tabpanel" aria-labelledby="nav-home-tab">
                         <ul class="listaMenuLateral">
@@ -42,10 +46,12 @@
                             </li>
                         </ul>  
                     </div>
+            @if (!Auth::guest())
+                @if (Auth::user()->hasRole('admin'))
                     <div class="tab-pane fade" id="nav-administracion" role="tabpanel" aria-labelledby="nav-profile-tab">
                         <ul class="listaMenuLateral">
                             <li>
-                                <a href="{{ url('/') }}" class="enlaceMenuLateral enlaceActivo">
+                                <a href="{{ route('admin.avisocategoria.index') }}" class="enlaceMenuLateral enlaceActivo">
                                     <span class="lineaEnlace"><span></span></span>
                                     <span class="tituloEnlace">
                                         <i class="fas fa-ad"></i> Publicar Aviso
@@ -54,6 +60,8 @@
                             </li>
                         </ul> 
                     </div>
+                @endif
+            @endif
                 </div>
             </div>
         </div>    

@@ -137,7 +137,7 @@
     background: var(--negro);
     color: var(--blanco);
     padding: 0 1rem;
-    margin: 5rem auto 3rem auto;
+    margin: 5rem auto 0 auto;
 }
 
 .cajaResumenTabla {
