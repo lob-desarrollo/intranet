@@ -14,6 +14,12 @@
     @stack('css')
 </head>
 <body class="bg-white">
+    <div class="pantalla">
+        <div class="pant">
+            <div class="loader"></div>
+        </div>
+    </div>
+
     <div class="bloqueMenu">
         <div class="menuLateral">
             <div class="encabezadoLateral">
@@ -37,7 +43,7 @@
                     <div class="tab-pane fade show active" id="nav-comunidad" role="tabpanel" aria-labelledby="nav-home-tab">
                         <ul class="listaMenuLateral">
                             <li>
-                                <a href="{{ url('/') }}" class="enlaceMenuLateral enlaceActivo">
+                                <a href="{{ url('/') }}" class="enlaceMenuLateral">
                                     <span class="lineaEnlace"><span></span></span>
                                     <span class="tituloEnlace">
                                         <i class="fas fa-home-alt"></i> Inicio
@@ -51,12 +57,17 @@
                     <div class="tab-pane fade" id="nav-administracion" role="tabpanel" aria-labelledby="nav-profile-tab">
                         <ul class="listaMenuLateral">
                             <li>
-                                <a href="{{ route('admin.avisocategoria.index') }}" class="enlaceMenuLateral enlaceActivo">
+                                <a href="dropDown" class="enlaceMenuLateral">
                                     <span class="lineaEnlace"><span></span></span>
                                     <span class="tituloEnlace">
-                                        <i class="fas fa-ad"></i> Publicar Aviso
+                                        <i class="far fa-chevron-right float-end mt-1"></i>
+                                        <i class="fas fa-ad"></i> Avisos
                                     </span>
                                 </a>
+                                <ul class="subMenuLateral">
+                                    <li><a href="{{ route('admin.aviso.index') }}" class="opcionLateral"><i class="fas fa-circle me-1"></i><span>Publicar</span></a></li>
+                                    <li><a href="{{ route('admin.avisocategoria.index') }}" class="opcionLateral"><i class="fas fa-circle me-1"></i><span>Categorías</span></a></li>
+                                </ul>
                             </li>
                         </ul> 
                     </div>
@@ -154,6 +165,9 @@
     </div>
 
     <a href="#inicio" class="botonSubir"><span><i class="fas fa-chevron-up"></i></span></a>
+
     @vite(['resources/js/app.js'])
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @stack('script')
 </body>
 </html>

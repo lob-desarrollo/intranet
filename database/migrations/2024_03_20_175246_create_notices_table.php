@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('resumen');
             $table->text('contenido');
             $table->string('imagen');
-            $table->timestamps('inicia', 0)->nullable();
-            $table->timestamps('termina', 0)->nullable();
+            $table->date('inicia')->nullable();
+            $table->date('termina')->nullable();
             $table->timestamps();
         });
     }

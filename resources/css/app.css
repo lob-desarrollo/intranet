@@ -8,6 +8,57 @@ body {
 	color: var(--negro);
 }
 
+.inputerror {
+	border: solid 1px var(--warning);
+}
+
+.pantalla {
+    position: fixed;
+    z-index: 1002;
+    top: 0;
+    left: 0;
+    display: none;
+    width: 100%;
+    height: 100vh;
+    background: rgba(49, 58, 70, 0.2);
+}
+
+.aparece {
+    display: table !important;
+}
+
+.pant {
+    display: table-cell;
+    width: 100%;
+    height: 100%;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.loader {
+    animation: spin 1.4s linear infinite;
+    border: .5rem solid #FFF;
+    border-radius: 50%;
+    border-top: .5rem solid #919BA5;
+    height: 5rem;
+    margin: auto;
+    width: 5rem;
+}
+
+.loader.small {
+    height: 3rem;
+    width: 3rem;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 .sinPadding {
 	padding-left: 0px;
 	padding-right: 0px;
@@ -192,13 +243,18 @@ body {
 .tituloEnlace i {
 	color: var(--bluegray);
 	margin: 0 8px 0 0;
+	transition: all 0.3s ease;
 }
 
-.enlaceMenuLateral:hover {
+.listaMenuLateral li:hover a.enlaceMenuLateral {
 	background: rgba(255, 255, 255, 0.3);
 }
 
-.enlaceMenuLateral:hover .lineaEnlace span {
+.listaMenuLateral li:hover a.enlaceMenuLateral i {
+	color: var(--blanco);
+}
+
+.listaMenuLateral li:hover a.enlaceMenuLateral .lineaEnlace span {
 	height: 100%;
 }
 
@@ -212,6 +268,58 @@ body {
 
 .enlaceActivo .lineaEnlace span {
 	height: 100%;
+}
+
+.enlaceActivo span i.fa-chevron-right {
+	transform: rotate(90deg);
+}
+
+.subMenuLateral {
+	position: relative;
+	margin: 0;
+	padding: 0;
+	background: rgba(255, 255, 255, 0.3);
+	height: 0;
+	opacity: 0;
+	overflow: hidden;
+	transition: all 0.3s ease;
+}
+
+.subMenuLateralVisible {
+	opacity: 1;
+	height: 100%;
+}
+
+.subMenuLateral li {
+	padding: 4px 0;
+}
+
+.opcionLateral {
+	display: table;
+	width: 100%;
+	color: var(--blanco);
+	text-decoration: none;
+	padding: 2px 0;
+}
+
+.opcionLateral span {
+	display: table-cell;
+	vertical-align: middle;
+	height: 20px;
+	font-size: 0.8rem;
+	padding: 0 0 0 8px;
+}
+
+.opcionLateral i {
+	display: table-cell;
+	vertical-align: middle;
+	text-align: right;
+	font-size: 4px;
+	width: 50px;
+}
+
+.opcionLateral:hover {
+	background: rgba(255, 255, 255, 0.4);
 }
 
 .barraTop {
@@ -669,4 +777,8 @@ footer {
 
 .botonSubir:hover span {
 	background: rgba(0, 0, 0, 1);
+}
+
+.ejemploImg {
+	width: 128px;
 }

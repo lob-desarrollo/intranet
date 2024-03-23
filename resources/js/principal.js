@@ -31,6 +31,16 @@ var principal = (function (window, undefined) {
                 $(this).find('ul.submenu').removeClass('submenuVisible');
             });
         });
+
+        $('[href="dropDown"]').each(function() {
+            $(this).on('click', function(e) {
+                e.preventDefault();
+                $('.enlaceActivo').removeClass('enlaceActivo');
+                $('.subMenuLateralVisible').removeClass('subMenuLateralVisible');
+                $(this).addClass('enlaceActivo');
+                $(this).parent().find('.subMenuLateral').addClass('subMenuLateralVisible');
+            });
+        });
     };
 
     return {

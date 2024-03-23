@@ -16,9 +16,9 @@
 			<table id="{{ $parametros['tabla'] }}" class="table table-striped table-hover table-centered dt-responsive nowrap w-100">
 			    <thead>
 			        <tr>
+			        	<th class="table-dark">TITULO</th>
 			            <th class="table-dark">CATEGORÍA</th>
-			            <th class="table-dark">ICONO</th>
-			            <th class="table-dark">COLOR</th>
+			            <th class="table-dark">RESUMEN</th>
 			            <th class="table-dark">FECHA</th>
 			            <th class="table-dark">ACCIONES</th>
 			        </tr>

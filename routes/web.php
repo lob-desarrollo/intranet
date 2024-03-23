@@ -31,7 +31,10 @@ Route::get('/', function () {
     return view('welcome', compact('parametros'));
 });
 
-Auth::routes();
+ Auth::routes();
+/*Auth::routes(['register' => false,
+              'reset'    => false,
+              'verify'   => false]);*/
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/lob/{seccion}', function ($seccion) {
@@ -42,4 +45,8 @@ Route::name('admin.')->prefix('admin')->middleware(['auth'])->group(function () 
     // Aviso Categorías
     Route::resource('/avisocategoria', App\Http\Controllers\Admin\NoticeCategoryController::class)->names('avisocategoria');
     Route::match(array('GET', 'POST'), '/request/getavisocategoria', 'App\Http\Controllers\Admin\NoticeCategoryController@getAvisoCategorias')->name('request.avisocategoria');
+
+    // Publicar Aviso
+    Route::resource('/aviso', App\Http\Controllers\Admin\NoticeController::class)->names('aviso');
+    Route::match(array('GET', 'POST'), '/request/getavisos', 'App\Http\Controllers\Admin\NoticeController@getAvisos')->name('request.avisos');
 });
