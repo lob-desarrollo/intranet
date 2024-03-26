@@ -52,13 +52,13 @@
 				<div class="row mt-3">
 					<div class="col-md-8">
 						<label for="resumen">Resumen</label>
-						<textarea name="resumen" id="resumen" class="form-control" required="true" data-tipo="txt">{{ old('resumen') ?? $parametros['datos']['resumen'] ?? '' }}</textarea>
+						<textarea name="resumen" id="resumen" class="form-control" cols="50" rows="5" required="true" data-tipo="txt">{{ old('resumen') ?? $parametros['datos']['resumen'] ?? '' }}</textarea>
 					</div>
 				</div>
 				<div class="row mt-3">
 					<div class="col-md-8">
 						<label for="contenido">Contenido</label>
-						<textarea name="contenido" id="contenido" class="form-control" required="true" data-tipo="txt">{{ old('contenido') ?? $parametros['datos']['contenido'] ?? '' }}</textarea>
+						<textarea name="contenido" id="contenido" class="form-control" cols="50" rows="50" required="true" data-tipo="txt">{{ old('contenido') ?? $parametros['datos']['contenido'] ?? '' }}</textarea>
 					</div>
 				</div>
 				<div class="row mt-3">
@@ -90,10 +90,40 @@
 @push('script')
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="//cdn.datatables.net/2.0.2/js/dataTables.min.js"></script>
+    <script src="//cdn.ckeditor.com/4.22.1/full/ckeditor.js"></script>
     <script src="{{ asset('js/listas.js').'?r='.time() }}"></script>
     <script>
+    	var editor;
+
         (function($) {
             listas.formulario('{{ $parametros['urlCancelar'] }}');
+            editor = CKEDITOR.replace('contenido', {
+						            	  height:['500px'],
+						                  toolbarGroups: [{
+						                      "name": "basicstyles",
+						                      "groups": ["basicstyles"]
+						                    },
+						                    {
+						                      "name": "links",
+						                      "groups": ["links"]
+						                    },
+						                    {
+						                      "name": "paragraph",
+						                      "groups": ["list", "blocks"]
+						                    },
+						                    {
+						                      "name": "insert",
+						                      "groups": ["insert"]
+						                    },
+						                    {
+						                      "name": "styles",
+						                      "groups": ["styles"]
+						                    },
+						                      { name: 'document',    groups: ['Source', 'mode'] }
+						                  ],
+						                  // Remove the redundant buttons from toolbar groups defined above.
+						                  removeButtons: 'Image,Iframe,Font,Styles,SpecialChar,ExportPdf,Save,NewPage,Preview,Print'
+						                });
         })(jQuery);
     </script>
 @endpush

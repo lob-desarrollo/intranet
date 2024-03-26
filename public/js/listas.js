@@ -67,6 +67,7 @@ var listas = (function (window, undefined) {
             e.preventDefault();
             pantallaOn();
             var continuar = true;
+            
             $('.inputerror').removeClass('inputerror');
             $('#nuevo [required="true"]').each(function() {
                 if($(this).attr('required') != undefined && $(this).prop('disabled') == false) {
@@ -79,6 +80,11 @@ var listas = (function (window, undefined) {
                     }
                 }
             });
+
+            if(editor.getData().length == 0) {
+                continuar = false;
+                $('.cke').addClass('inputerror');
+            }
 
             if(continuar) {
                 $('#nuevo').submit();

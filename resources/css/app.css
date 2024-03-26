@@ -9,7 +9,7 @@ body {
 }
 
 .inputerror {
-	border: solid 1px var(--warning);
+	border: solid 1px var(--warning) !important;
 }
 
 .pantalla {
@@ -781,4 +781,9 @@ footer {
 
 .ejemploImg {
 	width: 128px;
+}
+
+/*CKEDITOR*/
+.ck-editor__editable_inline {
+    min-height: 400px;
 }
