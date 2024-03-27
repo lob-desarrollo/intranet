@@ -210,7 +210,10 @@ class NoticeController extends Controller {
                                          ->orWhere('notice_categories.categoria', 'LIKE', "%{$buscar['value']}%");
                        })->where('notice_categories.estatus', '=', '1')->get();
 
-        $registros = Notice::select('notices.id', 'notice_categories.categoria', 'notices.titulo', 'notices.resumen', DB::raw("DATE_FORMAT(notices.created_at, '%d/%m/%Y %H:%i') AS fecha"))
+        $registros = Notice::select('notices.id', 'notice_categories.categoria', 'notices.titulo', 
+                                    DB::raw("DATE_FORMAT(notices.inicia, '%d.%m.%Y') AS inicia"), 
+                                    DB::raw("DATE_FORMAT(notices.termina, '%d.%m.%Y') AS termina"), 
+                                    DB::raw("DATE_FORMAT(notices.created_at, '%d.%m.%Y %H:%i') AS fecha"))
                            ->leftjoin('notice_categories', 'notices.categoria_id', '=', 'notice_categories.id')
                            ->when(!empty($buscar['value']) , function($query) use($buscar) {
                                return $query->where('notices.titulo', 'LIKE', "%{$buscar['value']}%")
@@ -226,7 +229,8 @@ class NoticeController extends Controller {
         foreach ($registros as $key => $value) {
             $datos[] = [$value->titulo,
                         $value->categoria,
-                        $value->resumen,
+                        $value->inicia,
+                        $value->termina,
                         $value->fecha,
                         '<a href="editar" data-id="'.$value->id.'" class="btn btn-outline-dark btn-sm" title="Editar"><i class="fas fa-pencil-alt"></i></a>
                          <a href="eliminar" data-id="'.$value->id.'" class="btn btn-outline-dark btn-sm" title="Borrar"><i class="fas fa-trash"></i></a>'];

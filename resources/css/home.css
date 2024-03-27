@@ -74,6 +74,20 @@
 	display: table-cell;
 	width: 100%;
 	height: 100%;
+	vertical-align: middle;
+	text-align: center;
+	font-size: 2.5rem;
+	color: var(--blanco);
+	border-radius: 4px;
+}
+
+.notificacionTextura {
+	background: url('../../public/media/textura.png') no-repeat center center;
+	display: table-cell;
+    width: 90px;
+    height: 90px;
+    vertical-align: middle;
+    text-align: center;
 }
 
 .notificacionDescripcion {
@@ -97,9 +111,14 @@
 }
 
 .notificacionTitulo {
-	font-family: var(--fuente-secundaria);
+	font-weight: normal;
 	text-align: left;
 	color: var(--negro);
+}
+
+.notificacionTitulo small {
+	display: block;
+	font-size: 0.8rem;
 }
 
 .notificacionBotonera {

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('categoria');
             $table->string('imagen');
-            $table->string('color', 50);
+            $table->string('color');
             $table->tinyInteger('estatus');
             $table->timestamps();
         });

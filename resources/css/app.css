@@ -509,6 +509,13 @@ body {
 	text-align: left;
 }
 
+.subtitulo2 small {
+	display: block;
+	font-family: var(--fuente-secundaria);
+	font-size: 0.8rem;
+	color: var(--negro);
+}
+
 .tarjeta {
 	display: table;
 	position: relative;

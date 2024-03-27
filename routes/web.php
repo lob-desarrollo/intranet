@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\Avisos;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +18,8 @@ Route::get('/', function () {
     $city = 'Tlaquepaque';
     $key = config('services.owm.key');
 
-    $parametros = [];
+    $parametros = ['avisos' => Avisos::all()];
+
     /*$response = Http::get("https://api.openweathermap.org/data/2.5/weather?q=".$city."&lang=es"."&appid=".$key)->json();
     if($response['cod'] == "200") {
         $parametros = ['weather' => $response['weather'][0]['description'],
@@ -37,9 +39,12 @@ Route::get('/', function () {
               'verify'   => false]);*/
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 Route::get('/lob/{seccion}', function ($seccion) {
     return view("lob.$seccion");
 });
+
+Route::match(array('GET', 'POST'), '/aviso/{id}/{titulo}', 'App\Http\Controllers\NoticeController@getDetalle')->name('aviso.getdetalle');
 
 Route::name('admin.')->prefix('admin')->middleware(['auth'])->group(function () {
     // Aviso Categorías

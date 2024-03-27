@@ -43,9 +43,21 @@ var principal = (function (window, undefined) {
         });
     };
 
+    var avisos = function() {
+        $('[data-aviso]').each(function() {
+            $(this).on('click', function(e) {
+                e.preventDefault();
+                var id = $(this).attr('data-aviso');
+                var titulo = $(this).attr('data-titulo');
+                document.location.href='/aviso/'+id+'/'+titulo;
+            });
+        });
+    };
+
     return {
         init : function() {
             init();
+            avisos();
         }
     };
 

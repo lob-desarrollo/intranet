@@ -18,7 +18,8 @@
 			        <tr>
 			        	<th class="table-dark">TITULO</th>
 			            <th class="table-dark">CATEGORÍA</th>
-			            <th class="table-dark">RESUMEN</th>
+			            <th class="table-dark">DESDE</th>
+			            <th class="table-dark">HASTA</th>
 			            <th class="table-dark">FECHA</th>
 			            <th class="table-dark">ACCIONES</th>
 			        </tr>

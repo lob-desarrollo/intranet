@@ -70,96 +70,48 @@
 			</div>
 
 			@if (!Auth::guest())
+				@if(!empty($parametros['avisos']))
 			<div class="row mt-5">
 				<div class="col-12 pt-4">
-					<h3 class="subtitulo mt-5">Lorem ipsum</h3>
-					<h2 class="titulo mt-2">Quisque dui nisl, eleifend eget</h2>
+					<h3 class="subtitulo mt-5">Avisos</h3>
+					<h2 class="titulo mt-2">Todo lo relevante, al alcance</h2>
 
+				@foreach($parametros['avisos'] as $key=>$value)
 					<div class="mt-5">
 						<div class="row notificacion">
 							<div class="col-1 sinPadding">
 								<div class="notificacionImagen">
-									<div>
-										<img src="https://company.cera-theme.com/wp-content/uploads/sites/14/2021/06/job-company-8-150x150.png" class="img-fluid" />
+									<div style="{{ $value['color'] }}">
+										<i class="notificacionTextura {{ $value['imagen'] }}"></i>
 									</div>
 								</div>
 							</div>
 							<div class="col-9">
 								<div class="notificacionDescripcion">
 									<div>
-										<h3 class="notificacionTitulo">Lorem ipsum dolor sit amet</h3>
-										<b>Nunc vel tellus</b> eget tellus condimentum dapibus bibendum vitae ante. Fusce sapien nulla, sagittis nec dapibus et.
+										<h3 class="notificacionTitulo">
+											{{ $value['titulo'] }}
+											<small>{{ $value['fecha'] }}</small>
+										</h3>
+										{{ $value['resumen'] }}
 									</div>
 								</div>
 							</div>
 							<div class="col-2 sinPadding">
 								<div class="notificacionBotonera">
 									<div>
-										<button type="button" class="btnCalendario"><i class="far fa-clock"></i> Ver más</button>
-										<div>04 de Marzo de 2024</div>
+										<button type="button" data-aviso="{{ $value['id'] }}" data-titulo="{{ cleanstring::cleanForUrl($value['titulo']) }}" class="btnCalendario"><i class="fad fa-hand-point-right"></i> Leer más</button>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="mt-5">
-						<div class="row notificacion">
-							<div class="col-1 sinPadding">
-								<div class="notificacionImagen">
-									<div>
-										<img src="https://company.cera-theme.com/wp-content/uploads/sites/14/2021/06/job-company-8-150x150.png" class="img-fluid" />
-									</div>
-								</div>
-							</div>
-							<div class="col-9">
-								<div class="notificacionDescripcion">
-									<div>
-										<h3 class="notificacionTitulo">Lorem ipsum dolor sit amet</h3>
-										<b>Nunc vel tellus</b> eget tellus condimentum dapibus bibendum vitae ante. Fusce sapien nulla, sagittis nec dapibus et.
-									</div>
-								</div>
-							</div>
-							<div class="col-2 sinPadding">
-								<div class="notificacionBotonera">
-									<div>
-										<button type="button" class="btnCalendario"><i class="far fa-clock"></i> Ver más</button>
-										<div>04 de Marzo de 2024</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="mt-5">
-						<div class="row notificacion">
-							<div class="col-1 sinPadding">
-								<div class="notificacionImagen">
-									<div>
-										<img src="https://company.cera-theme.com/wp-content/uploads/sites/14/2021/06/job-company-8-150x150.png" class="img-fluid" />
-									</div>
-								</div>
-							</div>
-							<div class="col-9">
-								<div class="notificacionDescripcion">
-									<div>
-										<h3 class="notificacionTitulo">Lorem ipsum dolor sit amet</h3>
-										<b>Nunc vel tellus</b> eget tellus condimentum dapibus bibendum vitae ante. Fusce sapien nulla, sagittis nec dapibus et.
-									</div>
-								</div>
-							</div>
-							<div class="col-2 sinPadding">
-								<div class="notificacionBotonera">
-									<div>
-										<button type="button" class="btnCalendario"><i class="far fa-clock"></i> Ver más</button>
-										<div>04 de Marzo de 2024</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
+				@endforeach
 				</div>
 			</div>
 
-			<button type="button" class="btnLista">Consultar lista</button>
+			<!--button type="button" class="btnLista">Consultar lista</button-->
+				@endif
 			@endif
 		</div>
 	</section>
