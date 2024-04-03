@@ -180,8 +180,7 @@ class NoticeCategoryController extends Controller {
         $datos = [];
         foreach ($registros as $key => $value) {
             $datos[] = [$value->categoria,
-                        '<div class="text-center"><i class="'.$value->imagen.'"></i></div>',
-                        '<div class="text-center"><i class="fas fa-circle" style="color: '.$value->color.';"></i></div>',
+                        '<i class="'.$value->imagen.'"></i>',
                         $value->fecha,
                         '<a href="editar" data-id="'.$value->id.'" class="btn btn-outline-dark btn-sm" title="Editar"><i class="fas fa-pencil-alt"></i></a>
                          <a href="eliminar" data-id="'.$value->id.'" class="btn btn-outline-dark btn-sm" title="Borrar"><i class="fas fa-trash"></i></a>'];

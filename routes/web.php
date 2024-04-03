@@ -18,7 +18,7 @@ Route::get('/', function () {
     $city = 'Tlaquepaque';
     $key = config('services.owm.key');
 
-    $parametros = ['avisos' => Avisos::all()];
+    $parametros = ['avisos' => Avisos::all()->skip(0)->take(5)];
 
     /*$response = Http::get("https://api.openweathermap.org/data/2.5/weather?q=".$city."&lang=es"."&appid=".$key)->json();
     if($response['cod'] == "200") {
@@ -54,4 +54,5 @@ Route::name('admin.')->prefix('admin')->middleware(['auth'])->group(function () 
     // Publicar Aviso
     Route::resource('/aviso', App\Http\Controllers\Admin\NoticeController::class)->names('aviso');
     Route::match(array('GET', 'POST'), '/request/getavisos', 'App\Http\Controllers\Admin\NoticeController@getAvisos')->name('request.avisos');
+    Route::match(array('GET', 'POST'), '/lista/{pagina}/avisos', 'App\Http\Controllers\Admin\NoticeController@getAvisosLista')->name('lista.avisos');
 });

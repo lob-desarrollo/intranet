@@ -74,7 +74,7 @@
 			<div class="row mt-5">
 				<div class="col-12 pt-4">
 					<h3 class="subtitulo mt-5">Avisos</h3>
-					<h2 class="titulo mt-2">Todo lo relevante, al alcance</h2>
+					<h2 class="titulo mt-2">Consulta la comunicación vigente.</h2>
 
 				@foreach($parametros['avisos'] as $key=>$value)
 					<div class="mt-5">
@@ -110,7 +110,7 @@
 				</div>
 			</div>
 
-			<!--button type="button" class="btnLista">Consultar lista</button-->
+			<a href="{{ route('admin.lista.avisos', ['pagina' => 1]) }}" class="btnLista"><span><i class="far fa-clipboard-list me-2"></i>Consultar lista</span></a>
 				@endif
 			@endif
 		</div>

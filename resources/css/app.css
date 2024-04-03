@@ -794,3 +794,153 @@ footer {
 .ck-editor__editable_inline {
     min-height: 400px;
 }
+
+.notificacion {
+	border-radius: 0.5rem;
+	border: solid 1px var(--oxford);
+	-webkit-box-shadow: 0 5px 10px 0 var(--oxford);
+	box-shadow: 0 5px 10px 0 var(--oxford);
+	transition: all 0.5s ease;
+	background: var(--blanco);
+}
+
+.notificacion:hover {
+	border: solid 1px var(--negro);
+}
+
+.notificacionImagen {
+	display: table;
+	width: 140px;
+	height: 140px;
+	padding: 25px;
+}
+
+.notificacionImagen div {
+	display: table-cell;
+	width: 100%;
+	height: 100%;
+	vertical-align: middle;
+	text-align: center;
+	font-size: 2.5rem;
+	color: var(--blanco);
+	border-radius: 4px;
+}
+
+.notificacionTextura {
+	background: url('../../public/media/textura.png') no-repeat center center;
+	display: table-cell;
+    width: 90px;
+    height: 90px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.notificacionDescripcion {
+	display: table;
+	width: 100%;
+	height: 140px;
+	overflow: auto;
+}
+
+.notificacionDescripcion div {
+	display: table-cell;
+	width: 100%;
+	height: 100%;
+	vertical-align: middle;
+	padding: 0 0 0 1rem;
+	text-align: justify;
+}
+
+.notificacionDescripcion div b {
+	font-family: var(--fuente-secundaria);
+}
+
+.notificacionTitulo {
+	font-weight: normal;
+	text-align: left;
+	color: var(--negro);
+}
+
+.notificacionTitulo small {
+	display: block;
+	font-size: 0.8rem;
+}
+
+.notificacionBotonera {
+	display: table;
+	width: 100%;
+	height: 140px;
+}
+
+.notificacionBotonera div {
+	display: table-cell;
+	width: 100%;
+	height: 100%;
+	vertical-align: middle;
+}
+
+.btnCalendario {
+	border-radius: 0.5rem;
+    height: 40px;
+    border: solid 1px var(--negro);
+    background: var(--negro);
+    color: var(--blanco);
+    padding: 0 1rem;
+    margin: 0 0 0.3rem 0;
+}
+
+.btnLista {
+	position: relative;
+	display: table;
+	border-radius: 0.5rem;
+    height: 40px;
+    left: 0;
+    right: 0;
+    border: solid 1px var(--negro);
+    background: var(--negro);
+    color: var(--blanco);
+    padding: 0 1rem;
+    margin: 5rem auto 0 auto;
+    text-decoration: none;
+}
+
+.btnLista span {
+	display: table-cell;
+	width: 100%;
+	height: 40px;
+	vertical-align: middle;
+	text-align: center;
+}
+
+.paginado {
+	text-align: right;
+}
+
+.pagina {
+	display: inline-block;
+	background: var(--gris);
+	width: 35px;
+	height: 35px;
+	border-radius: 0.5rem;
+	text-decoration: none;
+	color: var(--oxford);
+	transition: all 0.3s ease;
+}
+
+.pagina span {
+	display: table-cell;
+	width: 35px;
+	height: 35px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.pagina:hover {
+	background: var(--negro);
+	color: var(--blanco);
+}
+
+.pagina-activa {
+	background: var(--negro) !important;
+	color: var(--blanco) !important;
+}

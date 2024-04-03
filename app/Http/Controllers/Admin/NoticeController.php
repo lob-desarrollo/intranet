@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\NoticeCategory;
 use App\Models\Notice;
+use App\Models\Avisos;
 use DB;
 use Storage;
 use File;
@@ -187,6 +188,25 @@ class NoticeController extends Controller {
         }
 
         return redirect()->route('admin.aviso.index')->with('alerta', json_encode($mensaje));
+    }
+
+    public function getAvisosLista(Request $request) {
+        $request->user()->authorizeRoles(['user', 'admin']);
+        $inicio=0;
+        $paginado = 10;
+        if(request('pagina') != null) {
+            $inicio = (request('pagina')-1)*$paginado;
+        }
+
+        $paginas = ceil(Avisos::count()/$paginado);
+        $avisos = Avisos::select('avisos.categoria', 'avisos.imagen', 'avisos.color', 'avisos.id', 'avisos.titulo', 'avisos.resumen', 'avisos.fecha')
+                           ->skip($inicio)->take($paginado)->get();
+
+        $parametros = ['paginas' => $paginas,
+                       'pagina'  => request('pagina'),
+                       'avisos'  => $avisos];
+
+        return view('lob.avisolista', compact('parametros'));
     }
 
     public function getAvisos(Request $request) {

@@ -50,10 +50,22 @@
                                     </span>
                                 </a>
                             </li>
+                            @if (!Auth::guest())
+                                @if (Auth::user()->hasRole('user') || Auth::user()->hasRole('admin'))
+                            <li>
+                                <a href="{{ route('admin.lista.avisos', ['pagina' => 1]) }}" class="enlaceMenuLateral">
+                                    <span class="lineaEnlace"><span></span></span>
+                                    <span class="tituloEnlace">
+                                        <i class="fas fa-ad"></i> Avisos
+                                    </span>
+                                </a>
+                            </li>
+                                @endif
+                            @endif
                         </ul>  
                     </div>
-            @if (!Auth::guest())
-                @if (Auth::user()->hasRole('admin'))
+                    @if (!Auth::guest())
+                        @if (Auth::user()->hasRole('admin'))
                     <div class="tab-pane fade" id="nav-administracion" role="tabpanel" aria-labelledby="nav-profile-tab">
                         <ul class="listaMenuLateral">
                             <li>
@@ -71,8 +83,8 @@
                             </li>
                         </ul> 
                     </div>
-                @endif
-            @endif
+                        @endif
+                    @endif
                 </div>
             </div>
         </div>    
@@ -166,8 +178,9 @@
 
     <a href="#inicio" class="botonSubir"><span><i class="fas fa-chevron-up"></i></span></a>
 
-    @vite(['resources/js/app.js'])
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @vite(['resources/js/app.js'])
     @stack('script')
 </body>
 </html>

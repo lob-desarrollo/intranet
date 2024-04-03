@@ -52,6 +52,11 @@ var principal = (function (window, undefined) {
                 document.location.href='/aviso/'+id+'/'+titulo;
             });
         });
+
+        $('[data-listaavisos]').on('click', function(e) {
+            e.preventDefault();
+            document.location.href=$(this).attr('data-listaavisos');
+        });
     };
 
     return {
