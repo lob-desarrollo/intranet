@@ -65,6 +65,7 @@
 					<div class="col-md-4">
 						<label for="imagen">Imagen</label>
 						<input type="file" name="imagen" id="imagen" class="form-control" {{ !isset($parametros['datos']['imagen'])?'required="true"':'required="false"' }} data-tipo="txt" onchange="listas.imagen(this);" />
+						<small>Tamaño: 768x480 pixeles</small>
 					</div>
 					<div class="col-md-4">
 						<div class="ejemploImg">
@@ -73,6 +74,14 @@
 							@else
 							<img id="ejemplo" src="{{ asset('media/imagen_ejemplo.png') }}" alt="Imagen ejemplo" class="img-fluid" />
 							@endif
+						</div>
+					</div>
+				</div>
+				<div class="row mt-3">
+					<div class="col-md-2">
+						<div class="form-check form-switch">
+						  <input class="form-check-input" type="checkbox" role="switch" name="estatus" id="estatus" value="1" {{ isset($parametros['datos']['estatus']) && $parametros['datos']['estatus']==1?'checked':'' }} \>
+						  <label class="form-check-label" for="estatus">Activo</label>
 						</div>
 					</div>
 				</div>

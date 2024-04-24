@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @push('css')
+    @vite(['resources/css/avisos-categoria.css'])
 @endpush
 
 @section('content')
@@ -24,13 +25,20 @@
                             <p class="error">{{ $errors->first('categoria') }}</p>
                         @endif
 					</div>
+					<div class="col-md-2">
+						<label for="imagen">Estatus</label>
+						<div class="form-check form-switch mt-2">
+						  <input class="form-check-input" type="checkbox" role="switch" name="estatus" id="estatus" value="1" {{ isset($parametros['datos']['estatus']) && $parametros['datos']['estatus']==1?'checked':'' }} \>
+						  <label class="form-check-label" for="estatus">Activo</label>
+						</div>
+					</div>
 				</div>
 				<div class="row mt-3">
 					<div class="col-md-2">
 						<label for="imagen">Icono</label>
-						<input type="hidden" name="imagen" id="imagen" value="fa fa-cow" required="true" data-tipo="txt" />
+						<input type="hidden" name="imagen" id="imagen" value="{{ old('imagen') ?? $parametros['datos']['imagen'] ?? 'fa fa-robot' }}" required="true" data-tipo="txt" />
 						<div>
-							<button type="button" id="btnIconos" class="btn btn-dark"><i class="fa fa-cow"></i></button>
+							<button type="button" id="btnIconos" class="btn btn-dark"><i class="{{ old('imagen') ?? $parametros['datos']['imagen'] ?? 'fa fa-robot' }}"></i></button>
 						</div>
 					</div>
 					<div class="col-md-2">
@@ -52,6 +60,27 @@
 			</form>
 		</div>
 	</section>
+
+	<div id="iconosModal" class="modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Iconos</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                	<div class="cajaIconos">
+                		@foreach($parametros['iconos'] as $key=>$value)
+                		<button type="button" class="btnicono" data-icon="{{ $value }}"><i class="{{ $value }}"></i></button>
+                		@endforeach
+                	</div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('script')

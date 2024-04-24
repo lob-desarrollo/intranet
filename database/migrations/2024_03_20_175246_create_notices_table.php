@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('resumen');
             $table->text('contenido');
             $table->string('imagen');
+            $table->tinyInteger('estatus');
             $table->date('inicia')->nullable();
             $table->date('termina')->nullable();
             $table->timestamps();

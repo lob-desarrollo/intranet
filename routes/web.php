@@ -33,10 +33,10 @@ Route::get('/', function () {
     return view('welcome', compact('parametros'));
 });
 
- Auth::routes();
-/*Auth::routes(['register' => false,
+ // Auth::routes();
+Auth::routes(['register' => false,
               'reset'    => false,
-              'verify'   => false]);*/
+              'verify'   => false]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -44,8 +44,18 @@ Route::get('/lob/{seccion}', function ($seccion) {
     return view("lob.$seccion");
 });
 
+// Avisos
+Route::match(array('GET', 'POST'), '/lista/{pagina}/avisos', 'App\Http\Controllers\NoticeController@getAvisosLista')->name('lista.avisos');
 Route::match(array('GET', 'POST'), '/aviso/{id}/{titulo}', 'App\Http\Controllers\NoticeController@getDetalle')->name('aviso.getdetalle');
 
+// Perfil
+Route::resource('/perfiles', App\Http\Controllers\ProfileController::class)->names('perfiles');
+Route::match(array('GET', 'POST'), '/perfil/request/setclave', 'App\Http\Controllers\ProfileController@setClave')->name('perfil.request.clave');
+
+// Links
+Route::resource('/enlaces', App\Http\Controllers\LinkController::class)->names('enlaces');
+
+// Rutas administrador
 Route::name('admin.')->prefix('admin')->middleware(['auth'])->group(function () {
     // Aviso Categorías
     Route::resource('/avisocategoria', App\Http\Controllers\Admin\NoticeCategoryController::class)->names('avisocategoria');
@@ -54,5 +64,12 @@ Route::name('admin.')->prefix('admin')->middleware(['auth'])->group(function () 
     // Publicar Aviso
     Route::resource('/aviso', App\Http\Controllers\Admin\NoticeController::class)->names('aviso');
     Route::match(array('GET', 'POST'), '/request/getavisos', 'App\Http\Controllers\Admin\NoticeController@getAvisos')->name('request.avisos');
-    Route::match(array('GET', 'POST'), '/lista/{pagina}/avisos', 'App\Http\Controllers\Admin\NoticeController@getAvisosLista')->name('lista.avisos');
+
+    // Link Categoría
+    Route::resource('/linkcategoria', App\Http\Controllers\Admin\LinkCategoryController::class)->names('linkcategoria');
+    Route::match(array('GET', 'POST'), '/request/getlinkcategoria', 'App\Http\Controllers\Admin\LinkCategoryController@getLinkCategorias')->name('request.linkcategoria');
+
+    // Publicar Link
+    Route::resource('/link', App\Http\Controllers\Admin\LinkController::class)->names('link');
+    Route::match(array('GET', 'POST'), '/request/getlinks', 'App\Http\Controllers\Admin\LinkController@getLinks')->name('request.links');
 });

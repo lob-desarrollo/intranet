@@ -1,0 +1,19 @@
+.listaEnlaces {
+	list-style: none;
+	margin: 0;
+	padding: 0 0 0 10px;
+}
+
+.enlaceInteres {
+	text-decoration: none;
+	color: var(--negro);
+}
+
+.enlaceInteres i {
+	color: var(--gris);
+	transition: all 0.3s ease;
+}
+
+.enlaceInteres:hover i {
+	color: var(--negro);
+}

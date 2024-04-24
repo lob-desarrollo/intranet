@@ -38,6 +38,7 @@ var listas = (function (window, undefined) {
                                                  $('[href="editar"]').on('click', function(e) {
                                                      e.preventDefault();
                                                      var id = $(this).attr('data-id');
+                                                     principal.pantallaOn();
                                                      document.location.href = urlEditar+id+'/edit';
                                                  });
 
@@ -49,8 +50,8 @@ var listas = (function (window, undefined) {
                                                        showDenyButton: true,
                                                        confirmButtonText: 'Eliminar',
                                                        denyButtonText: 'Cancelar',
-                                                       confirmButtonColor: "#7bed9f",
-                                                       denyButtonButtonColor: "#ff6b81",
+                                                       confirmButtonColor: "#2ecc71",
+                                                       denyButtonButtonColor: "#e74c3c",
                                                      }).then((result) => {
                                                        if (result.isConfirmed) {
                                                             $('#registro_id').val(id);
@@ -63,15 +64,33 @@ var listas = (function (window, undefined) {
     };
 
     var formulario = function(urlCancelar) {
+        $('#btnIconos').on('click', function(e) {
+            e.preventDefault();
+            var iconosModal = new bootstrap.Modal($('#iconosModal'), { keyboard: false });
+            iconosModal.show();
+        });
+
+        $('.btnicono').each(function() {
+            $(this).on('click', function(e) {
+                e.preventDefault();
+                var actual = $('#btnIconos').find('i').attr('class');
+                var icon =$(this).attr('data-icon');
+                $('#imagen').val(icon);
+                $('#btnIconos').find('i').removeClass(actual);
+                $('#btnIconos').find('i').addClass(icon);
+                console.log(icon);
+            });
+        });
+
         $('button[data-accion="guardar"]').on('click', function(e) {
             e.preventDefault();
-            pantallaOn();
+            principal.pantallaOn();
             var continuar = true;
             
             $('.inputerror').removeClass('inputerror');
             $('#nuevo [required="true"]').each(function() {
                 if($(this).attr('required') != undefined && $(this).prop('disabled') == false) {
-                    if(!validar($(this).val(), $(this).attr('data-tipo'))) {
+                    if(!principal.validar($(this).val(), $(this).attr('data-tipo'))) {
                         continuar = false;
                         $(this).addClass('inputerror');    
                         if($(this).hasClass('select2')) {
@@ -81,16 +100,18 @@ var listas = (function (window, undefined) {
                 }
             });
 
-            if(editor.getData().length == 0) {
-                continuar = false;
-                $('.cke').addClass('inputerror');
+            if(typeof editor != 'undefined') {
+                if(editor.getData().length == 0) {
+                    continuar = false;
+                    $('.cke').addClass('inputerror');
+                }
             }
 
             if(continuar) {
                 $('#nuevo').submit();
             } else {
-                pantallaOff();
-                alerta('Atención', 'Completa el formulario.', 'warning');
+                principal.pantallaOff();
+                principal.alerta('Atención', 'Completa el formulario.', 'warning');
             }
         });
 
@@ -98,51 +119,6 @@ var listas = (function (window, undefined) {
             e.preventDefault();
             document.location.href = urlCancelar;
         });
-    };
-
-    var validar = function(valor, tipo) {
-        var res = true;
-
-        switch(tipo) {
-            case 'crc':
-                var re = /^([\da-z_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/
-                
-                if(!re.exec(valor)){
-                    res = false;
-                } 
-            break;
-
-            case 'txt':
-                if(valor.length == 0) {
-                    res = false;
-                }
-            break;
-
-            case 'mcero':
-                if(valor.length == 0 || parseInt(valor) <= 0) {
-                    res = false;
-                }
-            break;
-        }
-
-        return res;
-    };
-
-    var pantallaOn = function() {
-        $('.pantalla').addClass('aparece');
-    };
-
-    var pantallaOff = function() {
-        $('.pantalla').removeClass('aparece');
-    };
-
-    var alerta = function(titulo, mensaje, tipo) {
-        Swal.fire({ icon              : tipo,
-                    title             : titulo,
-                    text              : mensaje,
-                    showConfirmButton : false,
-                    timer             : 2000,
-                    timerProgressBar  : true, });
     };
 
     var imagen = function(elemento) {
@@ -163,9 +139,6 @@ var listas = (function (window, undefined) {
         },
         formulario : function(urlCancelar) {
             formulario(urlCancelar);
-        },
-        alerta : function(data) {
-            alerta(data.titulo, data.mensaje, data.tipo);
         },
         imagen : function(elemento) {
             imagen(elemento);

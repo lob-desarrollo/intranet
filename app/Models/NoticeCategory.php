@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class NoticeCategory extends Model {
     use HasFactory;
-    protected $fillable = ['categoria', 'imagen', 'color', 'estatus'];
+    protected $fillable = ['categoria', 'imagen', 'color', 'estatus', 'borrado'];
 }

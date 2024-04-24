@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('imagen');
             $table->string('color');
             $table->tinyInteger('estatus');
+            $table->tinyInteger('borrado');
             $table->timestamps();
         });
     }

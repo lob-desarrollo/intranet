@@ -8,8 +8,44 @@ body {
 	color: var(--negro);
 }
 
+body::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+    background-color: var(--gris);
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: var(--oxford) !important;
+}
+
 .inputerror {
 	border: solid 1px var(--warning) !important;
+}
+
+.iconTable {
+	display: table;
+	width: 100%;
+	height: 30px;
+}
+
+.iconCelda {
+	display: table-cell;
+	width: 100%;
+	height: 30px;
+	vertical-align: middle;
+	text-align: center;
+}
+
+.txtCorrecto {
+	color: var(--success);
+}
+
+.txtError {
+	color: var(--error);
+}
+
+.txtAdvertencia {
+	color: var(--warning);
 }
 
 .pantalla {
@@ -100,6 +136,10 @@ body {
 	transition: all 0.3s ease;
 }
 
+.logoLateral {
+	display: inline-block;
+}
+
 .menuLateral {
 	position: relative;
 	background: var(--negro);
@@ -146,7 +186,7 @@ body {
 	height: 40px;
 }
 
-.nav-link {
+.menuSecciones .nav-link {
 	color: var(--oxford);
     border: none !important;
     font-size: 0.8rem;
@@ -156,18 +196,18 @@ body {
     margin: 10px 0 0 0;
 }
 
-.nav-tabs .nav-link.active, 
-.nav-tabs .nav-item.show .nav-link {
+.menuSecciones .nav-tabs .nav-link.active, 
+.menuSecciones .nav-tabs .nav-item.show .nav-link {
 	background: none;
 	color: var(--blanco);
 }
 
-.nav-link:hover {
+.menuSecciones .nav-link:hover {
 	background: none;
 	color: var(--blanco);
 }
 
-/*.nav-link.active {
+/*.menuSecciones .nav-link.active {
 	background: none !important;
     color: var(--blanco) !important;
     border: none !important;
@@ -944,3 +984,13 @@ footer {
 	background: var(--negro) !important;
 	color: var(--blanco) !important;
 }
+
+
+.nav-link.active.pillsCustom {
+	background: var(--negro);
+}
+
+.nav-link.pillsCustom {
+	color: var(--oxford);
+}
+

@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\NoticeCategory;
 use App\Models\Notice;
-use App\Models\Avisos;
 use DB;
 use Storage;
 use File;
@@ -21,7 +20,7 @@ class NoticeController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request) {
-        $request->user()->authorizeRoles(['admin']);
+        $request->user()->authorizeRoles(['sa', 'admin']);
         $parametros = ['titulo'      => 'PUBLICAR AVISOS',
                        'descripcion' => 'Administra los avisos que se publican en el sitio.',
                        'tabla'       => 'listaAvisos',
@@ -37,7 +36,7 @@ class NoticeController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create(Request $request) {
-        $request->user()->authorizeRoles(['admin']);
+        $request->user()->authorizeRoles(['sa', 'admin']);
         $parametros = ['titulo'      => 'PUBLICACIÓN NUEVA',
                        'descripcion' => 'Crea y edita avisos publicados en el sitio.',
                        'urlLista'    => '/admin/request/getaviso',
@@ -54,7 +53,7 @@ class NoticeController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        $request->user()->authorizeRoles(['admin']);
+        $request->user()->authorizeRoles(['sa', 'admin']);
         $request->validate(['categoria_id' => 'required',
                             'titulo'       => 'required|max:191',
                             'resumen'      => 'required',
@@ -78,6 +77,7 @@ class NoticeController extends Controller {
                                         'resumen'      => request('resumen'),
                                         'contenido'    => request('contenido'),
                                         'imagen'       => $archivo,
+                                        'estatus'      => request('estatus')!=null?1:0,
                                         'inicia'       => request('inicia'),
                                         'termina'      => request('termina')]);
         } catch(Exception $exception) {
@@ -107,7 +107,7 @@ class NoticeController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(Request $request, $id) {
-        $request->user()->authorizeRoles(['admin']);
+        $request->user()->authorizeRoles(['sa', 'admin']);
         $parametros = ['titulo'      => 'EDITAR PUBLICACIÓN',
                        'descripcion' => 'Edita avisos publicados en el sitio',
                        'urlGuardar'  => "/admin/aviso/$id",
@@ -125,7 +125,7 @@ class NoticeController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id) {
-        $request->user()->authorizeRoles(['admin']);
+        $request->user()->authorizeRoles(['sa', 'admin']);
         $request->validate(['categoria_id' => 'required',
                             'titulo'       => 'required|max:191',
                             'resumen'      => 'required',
@@ -153,6 +153,7 @@ class NoticeController extends Controller {
                                                                'resumen'      => request('resumen'),
                                                                'contenido'    => request('contenido'),
                                                                'imagen'       => $archivo,
+                                                               'estatus'      => request('estatus')!=null?1:0,
                                                                'inicia'       => request('inicia'),
                                                                'termina'      => request('termina')]);
         } catch(Exception $exception) {
@@ -171,7 +172,7 @@ class NoticeController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request, $id) {
-        $request->user()->authorizeRoles(['admin']);
+        $request->user()->authorizeRoles(['sa', 'admin']);
         $mensaje = ['tipo'    => 'success',
                     'titulo'  => 'Exito',
                     'mensaje' => 'Registro eliminado.'];
@@ -190,27 +191,8 @@ class NoticeController extends Controller {
         return redirect()->route('admin.aviso.index')->with('alerta', json_encode($mensaje));
     }
 
-    public function getAvisosLista(Request $request) {
-        $request->user()->authorizeRoles(['user', 'admin']);
-        $inicio=0;
-        $paginado = 10;
-        if(request('pagina') != null) {
-            $inicio = (request('pagina')-1)*$paginado;
-        }
-
-        $paginas = ceil(Avisos::count()/$paginado);
-        $avisos = Avisos::select('avisos.categoria', 'avisos.imagen', 'avisos.color', 'avisos.id', 'avisos.titulo', 'avisos.resumen', 'avisos.fecha')
-                           ->skip($inicio)->take($paginado)->get();
-
-        $parametros = ['paginas' => $paginas,
-                       'pagina'  => request('pagina'),
-                       'avisos'  => $avisos];
-
-        return view('lob.avisolista', compact('parametros'));
-    }
-
     public function getAvisos(Request $request) {
-        $request->user()->authorizeRoles(['admin']);
+        $request->user()->authorizeRoles(['sa', 'admin', 'user']);
         $buscar = request('search');
         $orden = request('order');
         $ordenamiento = ['campo' => 'notices.id',
@@ -230,7 +212,7 @@ class NoticeController extends Controller {
                                          ->orWhere('notice_categories.categoria', 'LIKE', "%{$buscar['value']}%");
                        })->where('notice_categories.estatus', '=', '1')->get();
 
-        $registros = Notice::select('notices.id', 'notice_categories.categoria', 'notices.titulo', 
+        $registros = Notice::select('notices.id', 'notice_categories.categoria', 'notices.titulo', 'notices.estatus',
                                     DB::raw("DATE_FORMAT(notices.inicia, '%d.%m.%Y') AS inicia"), 
                                     DB::raw("DATE_FORMAT(notices.termina, '%d.%m.%Y') AS termina"), 
                                     DB::raw("DATE_FORMAT(notices.created_at, '%d.%m.%Y %H:%i') AS fecha"))
@@ -249,6 +231,7 @@ class NoticeController extends Controller {
         foreach ($registros as $key => $value) {
             $datos[] = [$value->titulo,
                         $value->categoria,
+                        $value->estatus==1?'<i class="fas fa-check-circle txtCorrecto me-1"></i> Activo':'<i class="far fa-circle txtAdvertencia me-1"></i> Inactivo',
                         $value->inicia,
                         $value->termina,
                         $value->fecha,

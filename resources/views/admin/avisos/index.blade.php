@@ -10,7 +10,7 @@
 			<h1 class="titulo2">{{ $parametros['titulo'] }}</h1>
 			<p class="mb-5">{{ $parametros['descripcion'] }}</p>
 
-			<div class="text-start">
+			<div class="text-start mb-2">
 				<button type="button" id="btnNuevo" class="btn btn-dark"><i class="fal fa-plus me-1"></i> Nuevo</button>
 			</div>
 			<table id="{{ $parametros['tabla'] }}" class="table table-striped table-hover table-centered dt-responsive nowrap w-100">
@@ -18,6 +18,7 @@
 			        <tr>
 			        	<th class="table-dark">TITULO</th>
 			            <th class="table-dark">CATEGORÍA</th>
+			            <th class="table-dark">ESTATUS</th>
 			            <th class="table-dark">DESDE</th>
 			            <th class="table-dark">HASTA</th>
 			            <th class="table-dark">FECHA</th>
@@ -43,7 +44,7 @@
         (function($) {
             listas.init('{{ $parametros['tabla'] }}', '{{ $parametros['urlLista'] }}', '{{ $parametros['urlNuevo'] }}', '{{ $parametros['urlEditar'] }}');
             @if ($message = Session::get('alerta'))
-            listas.alerta({!! $message !!});
+            principal.alerta({!! $message !!});
             @endif
         })(jQuery);
     </script>

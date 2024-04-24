@@ -15,7 +15,7 @@
             <div class="row mt-5 mb-4 paginado">
                 <div class="col-12 sinPadding">
                     @for($i=1; $i<=$parametros['paginas']; $i++)
-                    <a href="{{ route('admin.lista.avisos', ['pagina' => $i]) }}" class="pagina {{ $parametros['pagina']==$i?'pagina-activa':'' }}"><span>{{ $i }}</span></a>
+                    <a href="{{ route('lista.avisos', ['pagina' => $i]) }}" class="pagina {{ $parametros['pagina']==$i?'pagina-activa':'' }}"><span>{{ $i }}</span></a>
                     @endfor
                 </div>
             </div>
@@ -25,7 +25,7 @@
                     <div class="row notificacion">
                         <div class="col-1 sinPadding">
                             <div class="notificacionImagen">
-                                <div style="{{ $value['color'] }}">
+                                <div style="background: {{ $value['color'] }};">
                                     <i class="notificacionTextura {{ $value['imagen'] }}"></i>
                                 </div>
                             </div>
@@ -55,7 +55,7 @@
             <div class="row paginado">
                 <div class="col-12 sinPadding">
                     @for($i=1; $i<=$parametros['paginas']; $i++)
-                    <a href="{{ route('admin.lista.avisos', ['pagina' => $i]) }}" class="pagina {{ $parametros['pagina']==$i?'pagina-activa':'' }}"><span>{{ $i }}</span></a>
+                    <a href="{{ route('lista.avisos', ['pagina' => $i]) }}" class="pagina {{ $parametros['pagina']==$i?'pagina-activa':'' }}"><span>{{ $i }}</span></a>
                     @endfor
                 </div>
             </div>

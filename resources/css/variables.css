@@ -25,12 +25,13 @@
 :root {
     --fuente-principal: 'ITC Avant Garde';
     --fuente-secundaria: 'ITC Avant Garde Demi';
-    --success: #55efc4;
-    --warning: #ffeaa7;
-    --error: #ff7675;
+    --success: #2ecc71;
+    --warning: #f39c12;
+    --error: #e74c3c;
     --negro: #000;
     --blanco: #FFF;
     --gris: #ecf0f1;
     --oxford: #585B5C;
     --bluegray: #778ca3;
+    --fondo: #F00;
 }

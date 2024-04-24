@@ -81,9 +81,9 @@
 						<div class="row notificacion">
 							<div class="col-1 sinPadding">
 								<div class="notificacionImagen">
-									<div style="{{ $value['color'] }}">
-										<i class="notificacionTextura {{ $value['imagen'] }}"></i>
-									</div>
+									<div style="background: {{ $value['color'] }};">
+		                                <i class="notificacionTextura {{ $value['imagen'] }}"></i>
+		                            </div>
 								</div>
 							</div>
 							<div class="col-9">
@@ -110,7 +110,7 @@
 				</div>
 			</div>
 
-			<a href="{{ route('admin.lista.avisos', ['pagina' => 1]) }}" class="btnLista"><span><i class="far fa-clipboard-list me-2"></i>Consultar lista</span></a>
+			<a href="{{ route('lista.avisos', ['pagina' => 1]) }}" class="btnLista"><span><i class="far fa-clipboard-list me-2"></i>Consultar lista</span></a>
 				@endif
 			@endif
 		</div>

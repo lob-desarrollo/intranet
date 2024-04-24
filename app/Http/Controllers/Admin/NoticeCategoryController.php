@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\NoticeCategory;
+use App\Models\Icon;
 use DB;
 
 class NoticeCategoryController extends Controller {
@@ -18,7 +19,7 @@ class NoticeCategoryController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request) {
-        $request->user()->authorizeRoles(['admin']);
+        $request->user()->authorizeRoles(['sa', 'admin']);
         $parametros = ['titulo'      => 'CATEGORÍAS DE AVISOS',
                        'descripcion' => 'Administra las categorías disponibles para alta de avisos.',
                        'tabla'       => 'listaCategorias',
@@ -34,12 +35,13 @@ class NoticeCategoryController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create(Request $request) {
-        $request->user()->authorizeRoles(['admin']);
+        $request->user()->authorizeRoles(['sa', 'admin']);
         $parametros = ['titulo'      => 'CATEGORÍA NUEVA',
                        'descripcion' => 'Crea y edita información de categoría.',
                        'urlLista'    => '/admin/request/getavisocategoria',
                        'urlGuardar'  => route('admin.avisocategoria.store'),
-                       'urlCancelar' => route('admin.avisocategoria.index')];
+                       'urlCancelar' => route('admin.avisocategoria.index'),
+                       'iconos'      => Icon::all()->pluck('icono')->toArray()];
         return view('admin.avisoCategoria.create', compact('parametros'));
     }
 
@@ -50,7 +52,7 @@ class NoticeCategoryController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        $request->user()->authorizeRoles(['admin']);
+        $request->user()->authorizeRoles(['sa', 'admin']);
         $request->validate(['categoria' => 'required|max:191',
                             'imagen'    => 'required',
                             'color'     => 'required']);
@@ -63,7 +65,8 @@ class NoticeCategoryController extends Controller {
             $registro = NoticeCategory::create(['categoria' => request('categoria'),
                                                 'imagen'    => request('imagen'),
                                                 'color'     => request('color'),
-                                                'estatus'   => 1]);
+                                                'estatus'   => request('estatus')!=null?1:0,
+                                                'borrado'   => 0]);
         } catch(Exception $exception) {
             $mensaje = ['tipo'    => 'error',
                         'titulo'  => 'Error',
@@ -91,12 +94,13 @@ class NoticeCategoryController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(Request $request, $id) {
-        $request->user()->authorizeRoles(['admin']);
+        $request->user()->authorizeRoles(['sa', 'admin']);
         $parametros = ['titulo'      => 'EDITAR CATEGORÍA',
                        'descripcion' => 'Edita información de categoría.',
                        'urlGuardar'  => "/admin/avisocategoria/$id",
                        'urlCancelar' => route('admin.avisocategoria.index'),
-                       'datos'       => NoticeCategory::findOrFail($id)];
+                       'datos'       => NoticeCategory::findOrFail($id),
+                       'iconos'      => Icon::all()->pluck('icono')->toArray()];
         return view('admin.avisoCategoria.create', compact('parametros'));
     }
 
@@ -108,7 +112,7 @@ class NoticeCategoryController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id) {
-        $request->user()->authorizeRoles(['admin']);
+        $request->user()->authorizeRoles(['sa', 'admin']);
         $request->validate(['categoria' => 'required|max:191',
                             'imagen'    => 'required',
                             'color'     => 'required']);
@@ -120,7 +124,8 @@ class NoticeCategoryController extends Controller {
         try {
             $registro = NoticeCategory::where('id', '=', $id)->update(['categoria' => request('categoria'),
                                                                        'imagen'    => request('imagen'),
-                                                                       'color'     => request('color')]);
+                                                                       'color'     => request('color'),
+                                                                       'estatus'   => request('estatus')!=null?1:0]);
         } catch(Exception $exception) {
             $mensaje = ['tipo'    => 'error',
                         'titulo'  => 'Error',
@@ -137,12 +142,12 @@ class NoticeCategoryController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request, $id) {
-        $request->user()->authorizeRoles(['admin']);
+        $request->user()->authorizeRoles(['sa', 'admin']);
         $mensaje = ['tipo'    => 'success',
                     'titulo'  => 'Exito',
                     'mensaje' => 'Registro eliminado.'];
         try {
-            $registro = NoticeCategory::where('id', '=', $id)->update(['estatus' => 0]);
+            $registro = NoticeCategory::where('id', '=', $id)->update(['borrado' => 0]);
         } catch(Exception $exception) {
             $mensaje = ['tipo'    => 'error',
                         'titulo'  => 'Error',
@@ -153,7 +158,7 @@ class NoticeCategoryController extends Controller {
     }
 
     public function getAvisoCategorias(Request $request) {
-        $request->user()->authorizeRoles(['admin']);
+        $request->user()->authorizeRoles(['sa', 'admin']);
         $buscar = request('search');
         $orden = request('order');
         $ordenamiento = ['campo' => 'notice_categories.categoria',
@@ -167,20 +172,21 @@ class NoticeCategoryController extends Controller {
         $total = NoticeCategory::select('notice_categories.id')
                                ->when(!empty($buscar['value']) , function($query) use($buscar) {
                                    return $query->where('notice_categories.categoria', 'LIKE', "%{$buscar['value']}%");
-                               })->where('notice_categories.estatus', '=', '1')->get();
+                               })->where('notice_categories.borrado', '=', '0')->get();
 
-        $registros = NoticeCategory::select('notice_categories.id', 'notice_categories.categoria', 'notice_categories.imagen', 'notice_categories.color', DB::raw("DATE_FORMAT(notice_categories.created_at, '%d/%m/%Y %H:%i') AS fecha"))
+        $registros = NoticeCategory::select('notice_categories.id', 'notice_categories.categoria', 'notice_categories.imagen', 'notice_categories.estatus', 'notice_categories.color', DB::raw("DATE_FORMAT(notice_categories.created_at, '%d/%m/%Y %H:%i') AS fecha"))
                                    ->when(!empty($buscar['value']) , function($query) use($buscar) {
                                        return $query->where('notice_categories.categoria', 'LIKE', "%{$buscar['value']}%"); 
                                    })
-                                   ->where('notice_categories.estatus', '=', '1')
+                                   ->where('notice_categories.borrado', '=', '0')
                                    ->orderBy($ordenamiento['campo'], $ordenamiento['dir'])
                                    ->skip(request('start'))->take(request('length'))->get();
 
         $datos = [];
         foreach ($registros as $key => $value) {
             $datos[] = [$value->categoria,
-                        '<i class="'.$value->imagen.'"></i>',
+                        '<i class="'.$value->imagen.'" style="color: '.$value->color.';"></i>',
+                        $value->estatus==1?'<i class="fas fa-check-circle txtCorrecto me-1"></i> Activo':'<i class="far fa-circle txtAdvertencia me-1"></i> Inactivo',
                         $value->fecha,
                         '<a href="editar" data-id="'.$value->id.'" class="btn btn-outline-dark btn-sm" title="Editar"><i class="fas fa-pencil-alt"></i></a>
                          <a href="eliminar" data-id="'.$value->id.'" class="btn btn-outline-dark btn-sm" title="Borrar"><i class="fas fa-trash"></i></a>'];

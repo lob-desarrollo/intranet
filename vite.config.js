@@ -6,11 +6,14 @@ export default defineConfig({
         laravel({
             input: [
                 'resources/sass/app.scss',
-                'resources/css/variables.css',
                 'resources/css/app.css',
+                'resources/css/avisos-categoria.css',
+                'resources/css/enlaces.css',
                 'resources/css/home.css',
-                'resources/css/nosotros.css',
                 'resources/css/login.css',
+                'resources/css/nosotros.css',
+                'resources/css/perfil.css',
+                'resources/css/variables.css',
                 'resources/js/app.js',
             ],
             refresh: true,

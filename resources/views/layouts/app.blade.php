@@ -25,14 +25,14 @@
             <div class="encabezadoLateral">
                 <button type="button" id="closeMenu" class="btnCloseMenu"><i class="fal fa-times"></i></button>
                 <div class="logoLateral">
-                    <img src="{{ asset('media/lob-blanco-sin-fondo.png') }}" class="img-fluid" alt="{{ config('app.name', 'Laravel') }}" />
+                    <a href="{{ url('/') }}"><img src="{{ asset('media/lob-blanco-sin-fondo.png') }}" class="img-fluid" alt="{{ config('app.name', 'Laravel') }}" /></a>
                 </div>
             </div>
             <nav class="menuSecciones">
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                     <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-comunidad" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Comunidad</button>
                     @if (!Auth::guest())
-                        @if (Auth::user()->hasRole('admin'))
+                        @if (Auth::user()->hasRole('sa') || Auth::user()->hasRole('admin'))
                             <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-administracion" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Administración</button>
                         @endif
                     @endif
@@ -51,12 +51,20 @@
                                 </a>
                             </li>
                             @if (!Auth::guest())
-                                @if (Auth::user()->hasRole('user') || Auth::user()->hasRole('admin'))
+                                @if (Auth::user()->hasRole('sa') || Auth::user()->hasRole('admin') || Auth::user()->hasRole('user'))
                             <li>
-                                <a href="{{ route('admin.lista.avisos', ['pagina' => 1]) }}" class="enlaceMenuLateral">
+                                <a href="{{ route('lista.avisos', ['pagina' => 1]) }}" class="enlaceMenuLateral">
                                     <span class="lineaEnlace"><span></span></span>
                                     <span class="tituloEnlace">
                                         <i class="fas fa-ad"></i> Avisos
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('enlaces.index') }}" class="enlaceMenuLateral">
+                                    <span class="lineaEnlace"><span></span></span>
+                                    <span class="tituloEnlace">
+                                        <i class="fas fa-link"></i> Enlaces de interés
                                     </span>
                                 </a>
                             </li>
@@ -65,7 +73,7 @@
                         </ul>  
                     </div>
                     @if (!Auth::guest())
-                        @if (Auth::user()->hasRole('admin'))
+                        @if (Auth::user()->hasRole('sa') || Auth::user()->hasRole('admin'))
                     <div class="tab-pane fade" id="nav-administracion" role="tabpanel" aria-labelledby="nav-profile-tab">
                         <ul class="listaMenuLateral">
                             <li>
@@ -77,8 +85,21 @@
                                     </span>
                                 </a>
                                 <ul class="subMenuLateral">
-                                    <li><a href="{{ route('admin.aviso.index') }}" class="opcionLateral"><i class="fas fa-circle me-1"></i><span>Publicar</span></a></li>
+                                    <li><a href="{{ route('admin.aviso.index') }}" class="opcionLateral"><i class="fas fa-circle me-1"></i><span>Publicar Avisos</span></a></li>
                                     <li><a href="{{ route('admin.avisocategoria.index') }}" class="opcionLateral"><i class="fas fa-circle me-1"></i><span>Categorías</span></a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="dropDown" class="enlaceMenuLateral">
+                                    <span class="lineaEnlace"><span></span></span>
+                                    <span class="tituloEnlace">
+                                        <i class="far fa-chevron-right float-end mt-1"></i>
+                                        <i class="fas fa-link"></i> Enlaces
+                                    </span>
+                                </a>
+                                <ul class="subMenuLateral">
+                                    <li><a href="{{ route('admin.link.index') }}" class="opcionLateral"><i class="fas fa-circle me-1"></i><span>Publicar Enlaces</span></a></li>
+                                    <li><a href="{{ route('admin.linkcategoria.index') }}" class="opcionLateral"><i class="fas fa-circle me-1"></i><span>Categorías</span></a></li>
                                 </ul>
                             </li>
                         </ul> 
@@ -111,6 +132,9 @@
                 <li class="dropDown">
                     <a href="{{ url('/') }}" class="opcmenu"><span><i class="fal fa-user me-1"></i> {{ Auth::user()->name }} <i class="fas fa-angle-down ms-1"></i></span></a>
                     <ul class="submenu">
+                        <li>
+                            <a href="{{ route('perfiles.index') }}"><span>Perfil</span></a>
+                        </li>
                         <li>
                             <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><span>Salir</span></a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -180,7 +204,13 @@
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ asset('js/principal.js').'?r='.time() }}"></script>
     @vite(['resources/js/app.js'])
+    <script>
+        (function($) {
+            principal.init();
+        })(jQuery);
+    </script>
     @stack('script')
 </body>
 </html>

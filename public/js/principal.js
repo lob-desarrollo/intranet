@@ -59,15 +59,76 @@ var principal = (function (window, undefined) {
         });
     };
 
+    var validar = function(valor, tipo) {
+        var res = true;
+
+        switch(tipo) {
+            case 'crc':
+                var re = /^([\da-z_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/
+                
+                if(!re.exec(valor)){
+                    res = false;
+                } 
+            break;
+
+            case 'txt':
+                if(valor.length == 0) {
+                    res = false;
+                }
+            break;
+
+            case 'mcero':
+                if(valor.length == 0 || parseInt(valor) <= 0) {
+                    res = false;
+                }
+            break;
+        }
+
+        return res;
+    };
+
+    var pantallaOn = function() {
+        $('.pantalla').addClass('aparece');
+    };
+
+    var pantallaOff = function() {
+        $('.pantalla').removeClass('aparece');
+    };
+
+    var alerta = function(titulo, mensaje, tipo) {
+        Swal.fire({ icon              : tipo,
+                    title             : titulo,
+                    text              : mensaje,
+                    showConfirmButton : false,
+                    timer             : 2000,
+                    timerProgressBar  : true, });
+    };
+
     return {
         init : function() {
             init();
             avisos();
+        },
+        pantallaOn : function() {
+            pantallaOn();
+        },
+        pantallaOff : function() {
+            pantallaOff();
+        },
+        alerta : function(data, mensaje, tipo) {
+            switch(typeof data) {
+                case 'object':
+                    alerta(data.titulo, data.mensaje, data.tipo);
+                break;
+
+                default:
+                    alerta(data, mensaje, tipo);
+                break;
+            }
+        },
+        validar : function(valor, tipo) {
+            return validar(valor, tipo);
         }
     };
 
 })(window, undefined);
-
-(function($) {
-    principal.init();
-})(jQuery);

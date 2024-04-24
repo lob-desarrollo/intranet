@@ -1,3 +1,4 @@
 import './jquery';
 import './bootstrap';
-import './principal';
+import * as bootstrap from 'bootstrap';
+window.bootstrap = bootstrap;
