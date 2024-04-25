@@ -59,6 +59,22 @@ var principal = (function (window, undefined) {
         });
     };
 
+    var contenidos = function() {
+        $('[data-contenido]').each(function() {
+            $(this).on('click', function(e) {
+                e.preventDefault();
+                var id = $(this).attr('data-contenido');
+                var titulo = $(this).attr('data-titulo');
+                document.location.href='/contenido/'+id+'/'+titulo;
+            });
+        });
+
+        $('[data-listacontenidos]').on('click', function(e) {
+            e.preventDefault();
+            document.location.href=$(this).attr('data-listacontenidos');
+        });
+    };
+
     var validar = function(valor, tipo) {
         var res = true;
 
@@ -107,7 +123,12 @@ var principal = (function (window, undefined) {
     return {
         init : function() {
             init();
+        },
+        avisos : function() {
             avisos();
+        },
+        contenidos : function() {
+            contenidos();
         },
         pantallaOn : function() {
             pantallaOn();

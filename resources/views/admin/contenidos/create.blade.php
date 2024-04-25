@@ -12,36 +12,12 @@
 			<form id="nuevo" action="{{ $parametros['urlGuardar'] }}" method="post" enctype="multipart/form-data" autocomplete="off">
 				@csrf
 
-                @isset($parametros['datos']['categoria_id'])
+                @isset($parametros['datos']['id'])
                 {{ method_field('patch') }}
                 @endisset
 
-                <div class="row">
-                	<div class="col-md-4">
-                		<label for="inicia">Inicio de vigencia</label>
-                		<input type="date" name="inicia" id="inicia" class="form-control" value="{{ old('inicia') ?? $parametros['datos']['inicia'] ?? '' }}" required="false" data-tipo="txt" />
-                	</div>
-                	<div class="col-md-4">
-                		<label for="termina">Final de vigencia</label>
-                		<input type="date" name="termina" id="termina" class="form-control" value="{{ old('termina') ?? $parametros['datos']['termina'] ?? '' }}" required="false" data-tipo="txt" />
-                	</div>
-                </div>
-				<div class="row mt-3">
-					<div class="col-md-4">
-						<label for="categoria">Categoría</label>
-						<select name="categoria_id" id="categoria_id" class="form-select" required="true" data-tipo="txt">
-							<option value="">Selecciona categoría</option>
-							@if(!empty($parametros['categorias']))
-								@foreach($parametros['categorias'] as $key=>$value)
-								<option value="{{ $value['id'] }}" {{ isset($parametros['datos']) && $parametros['datos']['categoria_id']==$value['id']?'selected':'' }}>{{ $value['categoria'] }}</option>
-								@endforeach
-							@endif
-						</select>
-						@if ($errors->has('categoria_id'))
-                            <p class="error">{{ $errors->first('categoria_id') }}</p>
-                        @endif
-					</div>
-					<div class="col-md-4">
+				<div class="row">
+					<div class="col-md-8">
 						<label for="titulo">Título</label>
 						<input type="text" name="titulo" id="titulo" class="form-control" value="{{ old('titulo') ?? $parametros['datos']['titulo'] ?? '' }}" required="true" data-tipo="txt" />
 						@if ($errors->has('titulo'))
@@ -70,7 +46,7 @@
 					<div class="col-md-4">
 						<div class="ejemploImg">
 							@if(isset($parametros['datos']['imagen']))
-							<img id="ejemplo" src="{{ asset('storage/notices/'.$parametros['datos']['imagen']) }}" alt="{{ $parametros['datos']['titulo'] }}" class="img-fluid" />
+							<img id="ejemplo" src="{{ asset('storage/contents/'.$parametros['datos']['imagen']) }}" alt="{{ $parametros['datos']['titulo'] }}" class="img-fluid" />
 							@else
 							<img id="ejemplo" src="{{ asset('media/imagen_ejemplo.png') }}" alt="Imagen ejemplo" class="img-fluid" />
 							@endif

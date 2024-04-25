@@ -57,6 +57,10 @@ Route::match(array('GET', 'POST'), '/perfil/request/setclave', 'App\Http\Control
 // Links
 Route::resource('/enlaces', App\Http\Controllers\LinkController::class)->names('enlaces');
 
+// Nuestra Gente
+Route::match(array('GET', 'POST'), '/lista/{pagina}/contenidos', 'App\Http\Controllers\PeopleController@getContenidosLista')->name('lista.contenidos');
+Route::match(array('GET', 'POST'), '/contenido/{id}/{titulo}', 'App\Http\Controllers\PeopleController@getDetalle')->name('contenido.getdetalle');
+
 // Rutas administrador
 Route::name('admin.')->prefix('admin')->middleware(['auth'])->group(function () {
     // Aviso Categorías
@@ -74,4 +78,8 @@ Route::name('admin.')->prefix('admin')->middleware(['auth'])->group(function () 
     // Publicar Link
     Route::resource('/link', App\Http\Controllers\Admin\LinkController::class)->names('link');
     Route::match(array('GET', 'POST'), '/request/getlinks', 'App\Http\Controllers\Admin\LinkController@getLinks')->name('request.links');
+
+    // Publicar Nuestra Gente
+    Route::resource('/contenido', App\Http\Controllers\Admin\PeopleController::class)->names('contenido');
+    Route::match(array('GET', 'POST'), '/request/getcontenidos', 'App\Http\Controllers\Admin\PeopleController@getContenidos')->name('request.contenidos');
 });

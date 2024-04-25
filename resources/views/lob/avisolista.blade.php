@@ -62,3 +62,11 @@
         </div>
     </section>
 @endsection
+
+@push('script')
+    <script>
+        (function($) {
+            principal.avisos();
+        })(jQuery);
+    </script>
+@endpush

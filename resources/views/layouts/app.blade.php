@@ -68,6 +68,14 @@
                                     </span>
                                 </a>
                             </li>
+                            <li>
+                                <a href="{{ route('lista.contenidos', ['pagina' => 1]) }}" class="enlaceMenuLateral">
+                                    <span class="lineaEnlace"><span></span></span>
+                                    <span class="tituloEnlace">
+                                        <i class="fas fa-book-reader"></i> Nuestra Gente
+                                    </span>
+                                </a>
+                            </li>
                                 @endif
                             @endif
                         </ul>  
@@ -101,6 +109,14 @@
                                     <li><a href="{{ route('admin.link.index') }}" class="opcionLateral"><i class="fas fa-circle me-1"></i><span>Publicar Enlaces</span></a></li>
                                     <li><a href="{{ route('admin.linkcategoria.index') }}" class="opcionLateral"><i class="fas fa-circle me-1"></i><span>Categorías</span></a></li>
                                 </ul>
+                            </li>
+                            <li>
+                                <a href="{{ route('admin.contenido.index') }}" class="enlaceMenuLateral">
+                                    <span class="lineaEnlace"><span></span></span>
+                                    <span class="tituloEnlace">
+                                        <i class="fas fa-book-reader"></i> Nuestra Gente
+                                    </span>
+                                </a>
                             </li>
                         </ul> 
                     </div>
