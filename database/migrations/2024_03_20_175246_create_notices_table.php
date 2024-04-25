@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('categoria_id');
             $table->string('titulo');
-            $table->string('resumen');
+            $table->text('resumen');
             $table->text('contenido');
             $table->string('imagen');
             $table->tinyInteger('estatus');

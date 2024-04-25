@@ -474,7 +474,7 @@ body::-webkit-scrollbar-thumb {
 	border-top: solid 1px var(--gris);
 	padding: 5px;
 	min-width: 200px;
-	background: var(--oxford);
+	background: var(--negro);
 	border-radius: 0px 0px 0.5rem 0.5rem;
 	-moz-border-radius: 0px 0px 0.5rem 0.5rem;
 	-webkit-border-radius: 0px 0px 0.5rem 0.5rem;
@@ -528,7 +528,7 @@ body::-webkit-scrollbar-thumb {
 	font-weight: normal;
 	margin: 0px;
 	padding: 0px;
-	color: var(--oxford);
+	color: var(--bluegray);
 	text-align: center;
 }
 

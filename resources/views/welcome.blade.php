@@ -173,4 +173,33 @@
 			</div>
 		</div>
 	</section>
+
+	@if (!Auth::guest())
+	<section class="container py-5">
+		<h3 class="subtitulo mt-5">¡Felicitaciones!</h3>
+		<h2 class="titulo mt-2">Ellos le han dado una vuelta más al sol.</h2>
+
+		<div class="row mt-5">
+			@foreach($parametros['cumples'] as $key=>$value)
+			<div class="col-3">
+				<div class="tarjetaCumple mb-4">
+					<div class="celdaCumple">
+						<div class="fechaCumple">
+							<i class="fas fa-birthday-cake"></i> {{ $value['nacimiento'] }}
+						</div>
+						<div class="avatarCumple">
+							<img src="{{ $value['avatar'] ?? asset('media/usuario-perfil.jpg') }}" class="img-fluid" />
+						</div>
+						<h3 class="nombreCumple mt-3">
+							{{ $value['nombre'] }}
+							<span>{{ $value['puesto'] }}</span>
+						</h3>
+						<h4 class="deptoCumple mt-3">{{ $value['departamento'] }}</h4>
+					</div>
+				</div>
+			</div>
+			@endforeach
+		</div>
+	</section>
+	@endif
 @endsection

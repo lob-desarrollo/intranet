@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Models\Avisos;
+use App\Models\Cumples;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +19,8 @@ Route::get('/', function () {
     $city = 'Tlaquepaque';
     $key = config('services.owm.key');
 
-    $parametros = ['avisos' => Avisos::all()->skip(0)->take(5)];
+    $parametros = ['avisos'  => Avisos::all()->skip(0)->take(5),
+                   'cumples' => Cumples::all()];
 
     /*$response = Http::get("https://api.openweathermap.org/data/2.5/weather?q=".$city."&lang=es"."&appid=".$key)->json();
     if($response['cod'] == "200") {
