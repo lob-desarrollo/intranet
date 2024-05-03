@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\People;
+use App\Models\Profile;
 use DB;
 use Storage;
 use File;
@@ -40,7 +41,8 @@ class PeopleController extends Controller {
                        'descripcion' => 'Crea y edita contenido publicados en el sitio.',
                        'urlLista'    => '/admin/request/getcontenido',
                        'urlGuardar'  => route('admin.contenido.store'),
-                       'urlCancelar' => route('admin.contenido.index')];
+                       'urlCancelar' => route('admin.contenido.index'),
+                       'usuarios'    => Profile::all('user_id', 'nombres', 'apellidos')->where('user_id', '>', 1)->toArray()];
         return view('admin.contenidos.create', compact('parametros'));
     }
 
@@ -52,9 +54,9 @@ class PeopleController extends Controller {
      */
     public function store(Request $request) {
         $request->user()->authorizeRoles(['sa', 'admin']);
-        $request->validate(['titulo'       => 'required|max:191',
-                            'resumen'      => 'required',
-                            'contenido'    => 'required',
+        $request->validate(['user_id'   => 'required',
+                            'resumen'   => 'required',
+                            'contenido' => 'required',
                             'imagen'    => 'required']);
 
         $mensaje = ['tipo'    => 'success',
@@ -69,7 +71,7 @@ class PeopleController extends Controller {
                 $path = $request->file('imagen')->storeAs('public/contents', $archivo);
             }
 
-            $registro = People::create(['titulo'       => request('titulo'),
+            $registro = People::create(['user_id'      => request('user_id'),
                                         'resumen'      => request('resumen'),
                                         'contenido'    => request('contenido'),
                                         'imagen'       => $archivo,
@@ -106,7 +108,8 @@ class PeopleController extends Controller {
                        'descripcion' => 'Edita contenidos publicados en el sitio',
                        'urlGuardar'  => "/admin/contenido/$id",
                        'urlCancelar' => route('admin.contenido.index'),
-                       'datos'       => People::findOrFail($id)];
+                       'datos'       => People::findOrFail($id),
+                       'usuarios'    => Profile::all('user_id', 'nombres', 'apellidos')->where('user_id', '>', 1)->toArray()];
         return view('admin.contenidos.create', compact('parametros'));
     }
 
@@ -119,7 +122,7 @@ class PeopleController extends Controller {
      */
     public function update(Request $request, $id) {
         $request->user()->authorizeRoles(['sa', 'admin']);
-        $request->validate(['titulo'       => 'required|max:191',
+        $request->validate(['user_id'       => 'required',
                             'resumen'      => 'required',
                             'contenido'    => 'required']);
 
@@ -140,11 +143,11 @@ class PeopleController extends Controller {
                 $path = $request->file('imagen')->storeAs('public/contents', $archivo);
             }
 
-            $registro = People::where('id', '=', $id)->update(['titulo'       => request('titulo'),
-                                                               'resumen'      => request('resumen'),
-                                                               'contenido'    => request('contenido'),
-                                                               'imagen'       => $archivo,
-                                                               'estatus'      => request('estatus')!=null?1:0]);
+            $registro = People::where('id', '=', $id)->update(['user_id'   => request('user_id'),
+                                                               'resumen'   => request('resumen'),
+                                                               'contenido' => request('contenido'),
+                                                               'imagen'    => $archivo,
+                                                               'estatus'   => request('estatus')!=null?1:0]);
         } catch(Exception $exception) {
             $mensaje = ['tipo'    => 'error',
                         'titulo'  => 'Error',
@@ -186,23 +189,27 @@ class PeopleController extends Controller {
         $orden = request('order');
         $ordenamiento = ['campo' => 'people.id',
                          'dir'   => 'desc'];
-        $campos = ['people.id', 'people.titulo', 'people.resumen', 'people.contenido', 'people.imagen'];
+        $campos = ['people.id', 'profiles.nombres', 'profiles.apellidos', 'people.resumen', 'people.contenido', 'people.imagen'];
         if(!empty($orden)) {
             $ordenamiento = ['campo' => $campos[$orden[0]['column']],
                              'dir'   => $orden[0]['dir']];
         }
 
         $total = People::select('people.id')
+                       ->leftjoin('profiles', 'people.user_id', '=', 'profiles.user_id')
                        ->when(!empty($buscar['value']) , function($query) use($buscar) {
-                            return $query->where('people.titulo', 'LIKE', "%{$buscar['value']}%")
+                            return $query->where('profiles.nombres', 'LIKE', "%{$buscar['value']}%")
+                                         ->orWhere('profiles.apellidos', 'LIKE', "%{$buscar['value']}%")
                                          ->orWhere('people.resumen', 'LIKE', "%{$buscar['value']}%")
                                          ->orWhere('people.contenido', 'LIKE', "%{$buscar['value']}%");
                        })->get();
 
-        $registros = People::select('people.id', 'people.titulo', 'people.estatus', 
+        $registros = People::select('people.id', 'profiles.nombres', 'profiles.apellidos', 'people.estatus', 
                                     DB::raw("DATE_FORMAT(people.created_at, '%d.%m.%Y %H:%i') AS fecha"))
+                           ->leftjoin('profiles', 'people.user_id', '=', 'profiles.id')
                            ->when(!empty($buscar['value']) , function($query) use($buscar) {
-                               return $query->where('people.titulo', 'LIKE', "%{$buscar['value']}%")
+                               return $query->where('profiles.nombres', 'LIKE', "%{$buscar['value']}%")
+                                            ->orWhere('profiles.apellidos', 'LIKE', "%{$buscar['value']}%")
                                             ->orWhere('people.resumen', 'LIKE', "%{$buscar['value']}%")
                                             ->orWhere('people.contenido', 'LIKE', "%{$buscar['value']}%");
                            })
@@ -211,7 +218,8 @@ class PeopleController extends Controller {
 
         $datos = [];
         foreach ($registros as $key => $value) {
-            $datos[] = [$value->titulo,
+            $datos[] = [$value->nombres,
+                        $value->apellidos,
                         $value->estatus==1?'<i class="fas fa-check-circle txtCorrecto me-1"></i> Activo':'<i class="far fa-circle txtAdvertencia me-1"></i> Inactivo',
                         $value->fecha,
                         '<a href="editar" data-id="'.$value->id.'" class="btn btn-outline-dark btn-sm" title="Editar"><i class="fas fa-pencil-alt"></i></a>

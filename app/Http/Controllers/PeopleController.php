@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\People;
+use App\Models\NuestraGente;
 use DB;
 
 class PeopleController extends Controller {
@@ -14,16 +15,14 @@ class PeopleController extends Controller {
     public function getContenidosLista(Request $request) {
         $request->user()->authorizeRoles(['sa', 'admin', 'user']);
         $inicio=0;
-        $paginado = 10;
+        $paginado = 12;
         if(request('pagina') != null) {
             $inicio = (request('pagina')-1)*$paginado;
         }
 
-        $paginas = ceil(People::count()/$paginado);
-        $contenidos = People::select('people.imagen', 'people.id', 'people.titulo', 'people.resumen', DB::raw("DATE_FORMAT(people.created_at, '%d.%m.%Y') AS fecha"))
-                            ->where('people.estatus', '=', '1')
-                            ->orderBy('people.created_at', 'DESC')
-                            ->skip($inicio)->take($paginado)->get();
+        $paginas = ceil(NuestraGente::count()/$paginado);
+        $contenidos = NuestraGente::select('nuestra_gente.id', 'nuestra_gente.nombre', 'nuestra_gente.avatar', 'nuestra_gente.puesto', 'nuestra_gente.departamento')
+                                  ->skip($inicio)->take($paginado)->get();
 
         $parametros = ['paginas'     => $paginas,
                        'pagina'      => request('pagina'),
@@ -34,9 +33,11 @@ class PeopleController extends Controller {
 
     public function getDetalle(Request $request, $id) {
         $request->user()->authorizeRoles(['sa', 'admin', 'user']);
-        $contenido = People::select('people.titulo', 'people.contenido', 'people.imagen', DB::raw("DATE_FORMAT(people.created_at, '%d.%m.%Y') AS fecha"))
-                       ->where('people.id', '=', $id)
-                       ->get();
+        $contenido = People::select('users.name', DB::raw("CONCAT(profiles.nombres, ' ', profiles.apellidos) AS 'nombre'"), 'people.contenido', 'people.imagen')
+                           ->leftjoin('users', 'people.user_id', '=', 'users.id')
+                           ->leftjoin('profiles', 'people.user_id', '=', 'profiles.user_id')
+                           ->where('people.id', '=', $id)
+                           ->get();
         $parametros = ['contenido' => $contenido[0]];
         
         return view('lob.contenido', compact('parametros'));

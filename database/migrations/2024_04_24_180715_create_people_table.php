@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('people', function (Blueprint $table) {
             $table->id();
-            $table->string('titulo');
+            $table->foreignId('user_id');
             $table->text('resumen');
             $table->text('contenido');
             $table->string('imagen');

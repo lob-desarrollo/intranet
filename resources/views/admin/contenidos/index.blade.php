@@ -16,7 +16,8 @@
 			<table id="{{ $parametros['tabla'] }}" class="table table-striped table-hover table-centered dt-responsive nowrap w-100">
 			    <thead>
 			        <tr>
-			        	<th class="table-dark">TITULO</th>
+			        	<th class="table-dark">NOMBRES</th>
+			        	<th class="table-dark">APELLIDOS</th>
 			            <th class="table-dark">ESTATUS</th>
 			            <th class="table-dark">FECHA</th>
 			            <th class="table-dark">ACCIONES</th>

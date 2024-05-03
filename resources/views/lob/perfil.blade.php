@@ -5,12 +5,12 @@
 @endpush
 
 @section('content')
-    <section class="bannerPerfil" style="background: url('{{ $parametros['perfil']['fondo'] ?? asset('media/banner-perfil.jpg') }}') no-repeat center bottom;">
+    <section class="bannerPerfil" style="background: url('{{ asset('storage/profiles/'.$parametros['perfil']['fondo']) ?? asset('media/banner-perfil.jpg') }}') no-repeat center bottom;">
         <div class="cubiertaBanner">
             <div class="container">
                 <div class="cajaUsuario">
                     <div class="imgUsuario">
-                        <img src="{{ $parametros['perfil']['avatar'] ?? asset('media/usuario-perfil.jpg') }}" class="img-fluid" />
+                        <img src="{{ asset('storage/profiles/'.$parametros['perfil']['avatar']) ?? asset('media/usuario-perfil.jpg') }}" class="img-fluid" />
                     </div>
                     <div class="datosUsuario">
                         <h3>{{ $parametros['usuario']['name'] }}</h3>
@@ -49,7 +49,7 @@
                             <table class="table table-hover">
                                 <tbody>
                                     <tr>
-                                        <td>Nombre</td>
+                                        <td>Nombre de usuario</td>
                                         <td>{{ $parametros['usuario']['name'] ?? '' }}</td>
                                     </tr>
                                     <tr>
@@ -62,7 +62,7 @@
                                     </tr>
                                     <tr>
                                         <td>Cumpleaños</td>
-                                        <td class="txtMes">{{ \Carbon\Carbon::parse($parametros['perfil']['nacimiento'])->formatLocalized('%d.%B.%Y') ?? '' }}</td>
+                                        <td class="txtMes">{{ \Carbon\Carbon::parse($parametros['perfil']['nacimiento'])->formatLocalized('%d.%B') ?? '' }}</td>
                                     </tr>
                                     <tr>
                                         <td>Genero</td>

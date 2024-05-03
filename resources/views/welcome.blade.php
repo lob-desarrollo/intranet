@@ -100,7 +100,7 @@
 							<div class="col-2 sinPadding">
 								<div class="notificacionBotonera">
 									<div>
-										<button type="button" data-aviso="{{ $value['id'] }}" data-titulo="{{ cleanstring::cleanForUrl($value['titulo']) }}" class="btnCalendario"><i class="fad fa-hand-point-right"></i> Leer más</button>
+										<button type="button" data-aviso="{{ $value['id'] }}" data-titulo="{{ cleanstring::cleanForUrl($value['titulo']) }}" class="btnCalendario">Leer más <i class="far fa-chevron-right ms-1"></i></button>
 									</div>
 								</div>
 							</div>

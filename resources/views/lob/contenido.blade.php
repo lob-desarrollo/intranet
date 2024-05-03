@@ -7,25 +7,14 @@
 @section('content')
     <section class="pt-5 pb-2">
         <div class="container mt-5 mb-5">
-            <div class="row">
-                <div class="col-6">
-                    <img src="{{ asset('storage/contents/'.$parametros['contenido']['imagen']) }}" class="img-fluid" />
-                </div>
-                <div class="col-6">
-                    <div class="contenidoTabla">
-                        <div class="contenidoCelda">
-                            <h3 class="subtitulo2">
-                                {{ $parametros['contenido']['titulo'] }}
-                                <small>{{ $parametros['contenido']['fecha'] }}</small>
-                            </h3>
+            <h3 class="subtitulo2">
+                {{ $parametros['contenido']['name'] }} <sup class="alias">aka</sup>
+                <small>{{ $parametros['contenido']['nombre'] }}</small>
+            </h3>
 
-                            <div class="mt-4">
-                                {!! $parametros['contenido']['contenido'] !!}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <img src="{{ asset('storage/contents/'.$parametros['contenido']['imagen']) }}" class="img-fluid my-5" />
+
+            {!! $parametros['contenido']['contenido'] !!}
         </div>
     </section>
 @endsection

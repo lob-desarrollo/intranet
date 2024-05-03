@@ -9,7 +9,7 @@
         <div class="container mt-5 mb-5">
             <h1 class="subtitulo2">
                 Nuestra Gente
-                <small>Consulta la comunicación vigente.</small>
+                <small>Conoce a las personas que forman parte de LOB.</small>
             </h1>
 
             <div class="row mt-5 mb-4 paginado">
@@ -21,59 +21,21 @@
             </div>
 
             @foreach($parametros['contenidos'] as $key=>$value)
-                @if($key%2 == 0)
-                    <section class="py-5">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <img src="{{ asset('storage/contents/'.$value['imagen']) }}" class="img-fluid" />
+                <div class="col-3">
+                    <div class="tarjetaCumple mb-4">
+                        <div class="celdaCumple">
+                            <div class="avatarCumple">
+                                <img src="{{ $value['avatar']!=''?asset('storage/profiles/'.$value['avatar']):asset('media/usuario-perfil.jpg') }}" class="img-fluid" />
                             </div>
-                            <div class="col-md-6">
-                                <div class="contenidoTabla">
-                                    <div class="contenidoCeldaVertical">
-                                        <h3 class="notificacionTitulo">
-                                            {{ $value['titulo'] }}
-                                            <small>{{ $value['fecha'] }}</small>
-                                        </h3>
-
-                                        {{ $value['resumen'] }}
-
-                                        <div class="notificacionBotonera">
-                                            <div>
-                                                <button type="button" data-contenido="{{ $value['id'] }}" data-titulo="{{ cleanstring::cleanForUrl($value['titulo']) }}" class="btnCalendario"><i class="fad fa-hand-point-right"></i> Leer más</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <h3 class="nombreCumple mt-3">
+                                {{ $value['nombre'] }}
+                                <span>{{ $value['puesto'] }}</span>
+                            </h3>
+                            <h4 class="deptoCumple mt-3">{{ $value['departamento'] }}</h4>
+                            <button type="button" data-contenido="{{ $value['id'] }}" data-titulo="{{ cleanstring::cleanForUrl($value['nombre']) }}" class="btnCalendario mt-4">Saber más</button>
                         </div>
-                    </section>
-                @else
-                    <section class="py-5">
-                        <div class="row">
-                            <div class="col-md-6 order-lg-2">
-                                <img src="{{ asset('storage/contents/'.$value['imagen']) }}" class="img-fluid" />
-                            </div>
-                            <div class="col-md-6 order-lg-1">
-                                <div class="contenidoTabla">
-                                    <div class="contenidoCeldaVertical">
-                                        <h3 class="notificacionTitulo">
-                                            {{ $value['titulo'] }}
-                                            <small>{{ $value['fecha'] }}</small>
-                                        </h3>
-
-                                        {{ $value['resumen'] }}
-
-                                        <div class="notificacionBotonera">
-                                            <div>
-                                                <button type="button" data-contenido="{{ $value['id'] }}" data-titulo="{{ cleanstring::cleanForUrl($value['titulo']) }}" class="btnCalendario"><i class="fad fa-hand-point-right"></i> Leer más</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                @endif
+                    </div>
+                </div>
             @endforeach
 
             <div class="row paginado">

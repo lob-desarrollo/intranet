@@ -27,11 +27,25 @@
 				</div>
 				<div class="row mt-3">
 					<div class="col-md-4">
-						<label for="url">Enlace</label>
-						<input type="text" name="url" id="url" class="form-control" value="{{ old('url') ?? $parametros['datos']['url'] ?? '' }}" required="true" data-tipo="txt" />
-						@if ($errors->has('url'))
-                            <p class="error">{{ $errors->first('url') }}</p>
-                        @endif
+						<div class="form-check form-switch">
+						  <input class="form-check-input" type="checkbox" role="switch" name="local" id="local" value="1" {{ isset($parametros['datos']['local']) && $parametros['datos']['local']==1?'checked':'' }} \>
+						  <label class="form-check-label" for="local">Local</label>
+						</div>
+						<div id="c1" class="{{ isset($parametros['datos']['local']) && $parametros['datos']['local']==1?'oculto':'' }}">
+							<label for="url">Enlace</label>
+							<input type="text" name="url" id="url" class="form-control" value="{{ old('url') ?? $parametros['datos']['url'] ?? '' }}" {{ !isset($parametros['datos']['id']) || isset($parametros['datos']['url'])?'required=true':'' }} data-tipo="txt" />
+							@if ($errors->has('url'))
+	                            <p class="error">{{ $errors->first('url') }}</p>
+	                        @endif
+						</div>
+						<div id="c2" class="{{ isset($parametros['datos']['local'])?($parametros['datos']['local']==0?'oculto':''):'oculto' }}">
+							<label for="archivo">Archivo</label>
+							<input type="file" name="archivo" id="archivo" class="form-control" data-tipo="txt" />
+							<small>{{ old('url') ?? $parametros['datos']['archivo'] ?? '' }}</small>
+							@if ($errors->has('archivo'))
+	                            <p class="error">{{ $errors->first('archivo') }}</p>
+	                        @endif
+						</div>
 					</div>
 				</div>
 				<div class="row mt-3">

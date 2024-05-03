@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Link;
 use App\Models\LinkCategory;
 use DB;
+use Storage;
+use File;
 
 class LinkController extends Controller {
     public function __construct() {
@@ -55,17 +57,25 @@ class LinkController extends Controller {
         $request->user()->authorizeRoles(['sa', 'admin']);
 
         $request->validate(['categoria_id' => 'required',
-                            'titulo'       => 'required|max:191',
-                            'url'          => 'required']);
+                            'titulo'       => 'required|max:191']);
 
         $mensaje = ['tipo'    => 'success',
                     'titulo'  => 'Exito',
                     'mensaje' => 'Registro guardado.'];
 
         try {
+            $archivo = null;
+            if ($request->file('archivo')) {
+                $extencion = $request->file('archivo')->getClientOriginalExtension();
+                $archivo = time().'.'.$extencion;
+                $path = $request->file('archivo')->storeAs('public/documents', $archivo);
+            }
+
             $registro = Link::create(['categoria_id' => request('categoria_id'),
                                       'titulo'       => request('titulo'),
                                       'url'          => request('url'),
+                                      'archivo'      => $archivo,
+                                      'local'        => request('local')!=null?1:0,
                                       'estatus'      => request('estatus')!=null?1:0]);
         } catch(Exception $exception) {
             $mensaje = ['tipo'    => 'error',
@@ -115,17 +125,30 @@ class LinkController extends Controller {
         $request->user()->authorizeRoles(['sa', 'admin']);
 
         $request->validate(['categoria_id' => 'required',
-                            'titulo'       => 'required|max:191',
-                            'url'          => 'required']);
+                            'titulo'       => 'required|max:191']);
 
         $mensaje = ['tipo'    => 'success',
                     'titulo'  => 'Exito',
                     'mensaje' => 'Registro actualizado.'];
                     
         try {
+            $datos = Link::findOrFail($id);
+            $archivo = $datos->archivo;
+            if ($request->file('archivo')) {
+                if(Storage::exists('public/documents/'.$archivo)){
+                    Storage::delete('public/documents/'.$archivo);
+                }
+
+                $extencion = $request->file('archivo')->getClientOriginalExtension();
+                $archivo = time().'.'.$extencion;
+                $path = $request->file('archivo')->storeAs('public/documents', $archivo);
+            }
+
             $registro = Link::where('id', '=', $id)->update(['categoria_id' => request('categoria_id'),
                                                              'titulo'       => request('titulo'),
                                                              'url'          => request('url'),
+                                                             'archivo'      => $archivo,
+                                                             'local'        => request('local')!=null?1:0,
                                                              'estatus'      => request('estatus')!=null?1:0]);
         } catch(Exception $exception) {
             $mensaje = ['tipo'    => 'error',
@@ -148,6 +171,11 @@ class LinkController extends Controller {
                     'titulo'  => 'Exito',
                     'mensaje' => 'Registro eliminado.'];
         try {
+            $datos = Link::findOrFail($id);
+            if(Storage::exists('public/documents/'.$datos->archivo)){
+                Storage::delete('public/documents/'.$datos->archivo);
+            }
+
             $registro = Link::where('id', '=', $id)->delete();
         } catch(Exception $exception) {
             $mensaje = ['tipo'    => 'error',

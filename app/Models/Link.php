@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Link extends Model {
     use HasFactory;
-    protected $fillable = ['categoria_id', 'titulo', 'url', 'estatus'];
+    protected $fillable = ['categoria_id', 'titulo', 'url', 'archivo', 'local', 'estatus'];
 }

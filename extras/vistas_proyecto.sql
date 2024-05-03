@@ -18,7 +18,8 @@ SELECT x.categoria, x.imagen, x.color, x.id, x.titulo, x.resumen, DATE_FORMAT(x.
 
 
 -- Enlaces
-SELECT links.id, links.categoria_id, links.titulo, links.url, link_categories.categoria
+SELECT links.id, links.categoria_id, links.titulo,
+	  IF (links.url IS NULL, CONCAT('storage/documents/', links.archivo), links.url) AS url, link_categories.categoria
   FROM links
 	LEFT JOIN link_categories ON link_categories.id=links.categoria_id
  WHERE links.estatus=1
@@ -35,3 +36,14 @@ SELECT users.name AS nombre, DATE_FORMAT(profiles.nacimiento, '%d.%m') AS nacimi
  WHERE DATE_FORMAT(nacimiento, '%m-%d') BETWEEN DATE_FORMAT(DATE_SUB(CURRENT_DATE(), INTERVAL 15 DAY), '%m-%d') AND DATE_FORMAT(DATE_ADD(CURRENT_DATE(), INTERVAL 15 DAY), '%m-%d')
    AND profiles.id!=1
  ORDER BY MONTH(nacimiento) ASC, DAY(nacimiento) ASC
+
+
+-- Nuestra gente
+SELECT people.id, users.name AS 'nombre', profiles.avatar, profiles.puesto, departments.departamento
+  FROM people
+	LEFT JOIN users ON people.user_id=users.id
+	LEFT JOIN profiles ON people.user_id=profiles.user_id
+	LEFT JOIN departments ON profiles.departamento_id=departments.id
+ WHERE profiles.estatus=1
+   AND people.estatus=1
+ ORDER BY people.id DESC

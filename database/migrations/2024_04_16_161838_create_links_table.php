@@ -17,7 +17,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('categoria_id');
             $table->string('titulo');
-            $table->text('url');
+            $table->text('url')->nullable();
+            $table->text('archivo')->nullable();
+            $table->tinyInteger('local');
             $table->tinyInteger('estatus');
             $table->timestamps();
         });
