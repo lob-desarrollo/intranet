@@ -53,6 +53,8 @@ Route::match(array('GET', 'POST'), '/aviso/{id}/{titulo}', 'App\Http\Controllers
 // Perfil
 Route::resource('/perfiles', App\Http\Controllers\ProfileController::class)->names('perfiles');
 Route::match(array('GET', 'POST'), '/perfil/request/setclave', 'App\Http\Controllers\ProfileController@setClave')->name('perfil.request.clave');
+Route::match(array('GET', 'POST'), '/perfil/request/setfoto', 'App\Http\Controllers\ProfileController@setFoto')->name('perfil.request.foto');
+Route::match(array('GET', 'POST'), '/perfil/request/setfondo', 'App\Http\Controllers\ProfileController@setFondo')->name('perfil.request.fondo');
 
 // Links
 Route::resource('/enlaces', App\Http\Controllers\LinkController::class)->names('enlaces');

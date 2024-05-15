@@ -5,12 +5,12 @@
 @endpush
 
 @section('content')
-    <section class="bannerPerfil" style="background: url('{{ asset('storage/profiles/'.$parametros['perfil']['fondo']) ?? asset('media/banner-perfil.jpg') }}') no-repeat center bottom;">
+    <section class="bannerPerfil" style="background: url('{{ $parametros['perfil']['fondo']!=''?asset('storage/profiles/'.$parametros['perfil']['fondo']):asset('media/banner-perfil.jpg') }}') no-repeat center bottom;">
         <div class="cubiertaBanner">
             <div class="container">
                 <div class="cajaUsuario">
                     <div class="imgUsuario">
-                        <img src="{{ asset('storage/profiles/'.$parametros['perfil']['avatar']) ?? asset('media/usuario-perfil.jpg') }}" class="img-fluid" />
+                        <img src="{{ $parametros['perfil']['avatar']!=''?asset('storage/profiles/'.$parametros['perfil']['avatar']):asset('media/usuario-perfil.jpg') }}" class="img-fluid" />
                     </div>
                     <div class="datosUsuario">
                         <h3>{{ $parametros['usuario']['name'] }}</h3>
@@ -30,11 +30,20 @@
                     <a href="#" class="opcMenuPerfil"><span>Perfil</span></a>
                 </li-->
             </ul>
+            
         </div>
     </section>
     <section class="my-5">
         <div class="container">
-            <div class="card">
+            @if (Auth::user()->id == $parametros['usuario']['id'])
+            <ul class="menuEdicion">
+                <li><button type="button" data-accion="{{ route('perfiles.index') }}" class="btn btn-dark"><i class="far fa-user mr-1"></i> Ver </button></li>
+                <li><button type="button" data-accion="{{ route('perfil.request.foto') }}" class="btn btn-light"><i class="far fa-crop-alt mr-1"></i> Cambiar foto de perfil </button></li>
+                <li><button type="button" data-accion="{{ route('perfil.request.fondo') }}" class="btn btn-light"><i class="fal fa-images mr-1"></i> Cambiar fondo de perfil </button></li>
+            </ul>
+            @endif
+
+            <div class="card mt-3">
                 <div class="card-body">
                     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                         <li class="nav-item" role="presentation">

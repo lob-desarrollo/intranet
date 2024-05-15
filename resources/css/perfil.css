@@ -90,3 +90,19 @@
 .txtMes {
 	text-transform: capitalize;
 }
+
+.menuEdicion {
+	list-style: none;
+	display: inline-block;
+	margin: 0;
+	padding: 4px 4px 4px 0;
+	background-color: #F8FAFC;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.175);
+    border-radius: 0.375rem;
+}
+
+.menuEdicion li {
+	float: left;
+	margin: 0 0 0 4px;
+}
