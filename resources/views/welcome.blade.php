@@ -203,3 +203,11 @@
 	</section>
 	@endif
 @endsection
+
+@push('script')
+    <script>
+        (function($) {
+            principal.avisos();
+        })(jQuery);
+    </script>
+@endpush

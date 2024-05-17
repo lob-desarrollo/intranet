@@ -58,6 +58,7 @@ Route::match(array('GET', 'POST'), '/perfil/request/setfondo', 'App\Http\Control
 
 // Links
 Route::resource('/enlaces', App\Http\Controllers\LinkController::class)->names('enlaces');
+Route::match(array('GET', 'POST'), '/enlaces/{directorio}/directorio', 'App\Http\Controllers\LinkController@index')->name('enlaces.getfiles');
 
 // Nuestra Gente
 Route::match(array('GET', 'POST'), '/lista/{pagina}/contenidos', 'App\Http\Controllers\PeopleController@getContenidosLista')->name('lista.contenidos');
